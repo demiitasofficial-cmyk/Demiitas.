@@ -1,0 +1,265 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Demiitas. - Official Site</title>
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Playfair+Display:ital,wght@0,400;0,700;1,400;1,700&family=Cormorant+Garamond:ital,wght@0,300;0,600;1,400&family=Shippori+Mincho:wght@400;700&family=Cinzel:wght@400;700&display=swap" rel="stylesheet">
+  <script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+  <div class="geo-cursor">
+    <div class="geo-cursor-dot"></div>
+    <div class="geo-cursor-ring"></div>
+  </div>
+
+  <header class="hero">
+        <div class="curtain-layer layer-1"></div>
+        <div class="curtain-layer layer-2"></div>
+        <div class="curtain-layer layer-3">
+            <h1 class="hero-logo-wrap">
+                <img src="demiitas sign.png" alt="Demiitas OFFICIAL SITE" class="hero-logo">
+            </h1>
+        </div>
+
+        <div class="hero-slide slide-1" style="background-image: url('illustration/Crazy\ caffeine\ addict.jpg');"></div>
+        <div class="hero-slide slide-2" style="background-image: url('illustration/芸術品.jpg');"></div>
+        <div class="hero-slide slide-3" style="background-image: url('illustration/SKL1.jpg');"></div>
+    </header>
+
+  <nav class="top-nav">
+    <div class="nav-container">
+      <a href="/" class="nav-logo"><img src="name logo.png" alt="DEMITAS Logo"></a>
+      
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
+        <i data-lucide="menu" class="icon-menu"></i>
+        <i data-lucide="x" class="icon-close" style="display: none;"></i>
+      </button>
+      
+      <ul id="nav-links">
+        <li><a href="#TOPIC">TOPIC</a></li>
+        <li><a href="#gallery">GALLERY</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+        
+        <li class="mobile-social-menu">
+          <a href="https://x.com/de_miitas?s=21" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+              </svg>
+            </span>
+            <span class="social-name">X (Twitter)</span>
+          </a>
+          
+          <a href="https://www.instagram.com/de_miitas?igsh=bWJqeWI0MHhwZmtk&utm_source=qr" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </span>
+            <span class="social-name">Instagram</span>
+          </a>
+          
+          <a href="https://www.pixiv.net/users/125458323" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon"><i data-lucide="palette"></i></span>
+            <span class="social-name">pixiv</span>
+          </a>
+          
+          <a href="https://www.youtube.com/channel/UCnWDEpYvIh0Mpjo70ui6bPQ" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+              </svg>
+            </span>
+            <span class="social-name">YouTube</span>
+          </a>
+
+        </li>
+        </ul>
+    </div>
+  </nav>
+
+  <main class="main-content">
+
+    <section class="profile-section fade-in">
+      <div class="profile-card">
+        <div class="profile-avatar" style="background-image: url('demiitas.jpg');"></div>
+        <div class="profile-info">
+          <p class="profile-role">illustrator</p>
+
+          <h1 class="profile-name">
+            <img src="name.webp" alt="DEMITAS">
+          </h1>
+          
+          <div class="profile-bio-container">
+            <p class="profile-bio">
+              少年期、ゴッホの「ひまわり」やアルチンボルドの「夏」など<br>
+              重厚でどこか温かみを感じる作風に影響を受け<br>
+              オレンジ色を基調としたイラストを描くようになった。<br>
+              絵画のように静的でありながらどこか温かみを感じる表現を模索中。<br>
+              「カワイイ」や「カッコイイ」より、<br>
+              一目観て「綺麗」と思っていただけるような日常の一コマを描くのが好き。<br>
+              <br>
+              好きなもの&よく描く題材...<br>
+              珈琲(マンデリンが好き)/ビターチョコ/スイーツ<br>
+              アンティーク/帽子/オレンジ/植物系　etc
+            </p>
+          </div>
+          
+          <div class="profile-social">
+            <a href="https://x.com/de_miitas?s=21" class="social-item" target="_blank" rel="noopener noreferrer">
+              <span class="social-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                  <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+                </svg>
+              </span>
+              <span class="social-name">X (Twitter)</span>
+            </a>
+            
+            <a href="https://www.instagram.com/de_miitas?igsh=bWJqeWI0MHhwZmtk&utm_source=qr" class="social-item" target="_blank" rel="noopener noreferrer">
+              <span class="social-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                  <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                  <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+                </svg>
+              </span>
+              <span class="social-name">Instagram</span>
+            </a>
+            
+            <a href="https://www.pixiv.net/users/125458323 " class="social-item" target="_blank" rel="noopener noreferrer">
+              <span class="social-icon"><i data-lucide="palette"></i></span>
+              <span class="social-name">pixiv</span>
+            </a>
+            
+            <a href="https://www.youtube.com/channel/UCnWDEpYvIh0Mpjo70ui6bPQ" class="social-item" target="_blank" rel="noopener noreferrer">
+              <span class="social-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                  <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+                </svg>
+              </span>
+              <span class="social-name">YouTube</span>
+            </a>
+
+            <a href="contact.html" class="social-item">
+              <span class="social-icon">
+                <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                  <path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"></path>
+                  <polyline points="22,6 12,13 2,6"></polyline>
+                </svg>
+              </span>
+              <span class="social-name">Mail Form</span>
+            </a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <section id="TOPIC" class="section-block fade-in">
+      <div class="section-header">
+        <h2 class="section-heading">TOPIC</h2>
+        <div class="stripe-box"></div>
+      </div>
+      
+      <div class="TOPIC-container">
+        <a href="topic/topic-03.html" class="TOPIC-banner-link">
+          <div class="banner-img" style="background-image: url('topic/01.御挨拶.webp');">
+            <div class="banner-overlay">
+            </div>
+          </div>
+        </a>
+
+        <ul class="TOPIC-list">
+
+          <li>
+            <time datetime="2026-03-15">2026.03.16
+            </time>
+            <span class="tag tag-info">Info</span>
+            <a href="topic/topic-03.html">活動開始のお知らせ</a>
+          </li>
+          
+        </ul>
+      </div>
+    </section>
+
+    <section id="gallery" class="section-block fade-in">
+      <div class="section-header">
+        <h2 class="section-heading">GALLERY</h2>
+        <div class="stripe-box"></div>
+      </div>
+      
+      <div class="gallery-marquee">
+        <div class="marquee-track">
+          <div class="marquee-group">
+            <div class="gallery-item"><div class="gallery-img" style="background-image: url('illustration/Crazy\ caffeine\ addict.webp');"></div></div>
+            <div class="gallery-item"><div class="gallery-img" style="background-image: url('illustration/ヤバベリ.webp');"></div></div>
+            <div class="gallery-item"><div class="gallery-img" style="background-image: url('illustration/SKL1.webp');"></div></div>
+          </div>
+          <div class="marquee-group">
+            <div class="gallery-item"><div class="gallery-img" style="background-image: url('illustration/Crazy\ caffeine\ addict.webp');"></div></div>
+            <div class="gallery-item"><div class="gallery-img" style="background-image: url('illustration/ヤバベリ.webp');"></div></div>
+            <div class="gallery-item"><div class="gallery-img" style="background-image: url('illustration/SKL1.webp');"></div></div>
+          </div>
+        </div>
+      </div>
+      
+      <div class="gallery-footer-bar">
+  <div class="gallery-controls">
+    <button class="slider-btn prev-btn" aria-label="Previous">
+      <i data-lucide="chevron-left"></i>
+    </button>
+    <button class="slider-btn toggle-btn" aria-label="Pause/Play">
+      <i data-lucide="pause"></i>
+    </button>
+    <button class="slider-btn next-btn" aria-label="Next">
+      <i data-lucide="chevron-right"></i>
+    </button>
+  </div>
+
+  <div class="view-more">
+    <a href="gallery.html" class="btn-outline">VIEW ALL GALLERY <i data-lucide="arrow-right"></i></a>
+  </div>
+</div>
+    </section>
+
+  </main>
+
+<footer class="site-footer">
+    <div class="content-wrapper footer-wrapper">
+      <div class="footer-nav">
+        <a href="commission.html" class="footer-link">Commission</a>
+        <span class="footer-separator">|</span>
+        <a href="guidelines.html" class="footer-link">Guidelines</a>
+        <span class="footer-separator">|</span>
+        
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+      </div>
+      <div class="footer-copy">
+        <small>&copy; 2026 Demiitas. All Rights Reserved.</small>
+      </div>
+
+      <button id="page-top" class="page-top-btn" aria-label="Page Top">
+        <i data-lucide="chevron-up"></i>
+      </button>
+      </div>
+  </footer>
+
+  <div id="image-modal" class="image-modal">
+    <div class="modal-bg"></div>
+    <button class="modal-close-btn" aria-label="Close"><i data-lucide="x"></i></button>
+    <div class="modal-content">
+      <img id="modal-preview" class="modal-image-preview" src="" alt="Preview">
+    </div>
+  </div>
+
+  <script src="script.js"></script>
+</body>
+</html>

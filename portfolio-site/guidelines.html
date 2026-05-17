@@ -1,0 +1,207 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Guidelines — Demiitas</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+JP:wght@400;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css">
+
+<style>
+/* ページ固有スタイル */
+.doc-header-wrap { padding: 140px 0 0; text-align: center; }
+.doc-eyebrow { font-family: 'Cinzel', serif; font-size: .5rem; letter-spacing: .6em; color: rgba(156,98,15,.5); text-transform: uppercase; display: block; margin-bottom: .8rem; }
+.doc-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 400; color: var(--coffee-bean); letter-spacing: .1em; line-height: 1; margin-bottom: .5rem; }
+.doc-title-rule { width: 60px; height: 1px; background: linear-gradient(to right, transparent, rgba(156,98,15,.5), transparent); margin: .8rem auto 0; }
+.doc-lead { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .9rem; letter-spacing: .12em; color: rgba(98,74,43,.45); margin-top: .7rem; display: block; }
+.doc-body { max-width: 720px; margin: 0 auto; padding: 4rem 40px 6rem; }
+.doc-section { margin-bottom: 3.5rem; padding-bottom: 3.5rem; }
+.doc-section:last-child { border-bottom: none; }
+.doc-section-title { font-family: 'Cinzel', serif; font-size: .5rem; letter-spacing: .55em; color: rgba(156,98,15,.55); text-transform: uppercase; display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.doc-section-title::before { content: '◆'; font-size: .45em; color: rgba(156,98,15,.4); }
+.doc-section-title::after { content: ''; flex: 1; height: 1px; background: rgba(98,74,43,.12); }
+.doc-h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--coffee-bean); letter-spacing: .06em; margin-bottom: 1rem; line-height: 1.2; }
+.doc-p { font-family: 'Noto Serif JP', serif; font-size: .88rem; line-height: 2.2; color: rgba(42,31,16,.72); letter-spacing: .04em; margin-bottom: 1rem; }
+.doc-p:last-child { margin-bottom: 0; }
+
+.rule-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1.5rem; margin: 1.2rem 0; }
+.rule-block { border: 1px solid rgba(98,74,43,.15); padding: 1.2rem 1.2rem 1.4rem; }
+.rule-block-label { font-family: 'Cinzel', serif; font-size: .46rem; letter-spacing: .45em; text-transform: uppercase; display: flex; align-items: center; gap: .6rem; margin-bottom: 1rem; padding-bottom: .5rem; border-bottom: 1px solid rgba(98,74,43,.1); }
+.rule-block.ok .rule-block-label { color: rgba(100,140,80,.7); }
+.rule-block.ng .rule-block-label { color: rgba(160,80,60,.7); }
+.rule-block-label::before { width: 6px; height: 6px; display: inline-block; transform: rotate(45deg); flex-shrink: 0; }
+.rule-block.ok .rule-block-label::before { background: rgba(100,140,80,.6); }
+.rule-block.ng .rule-block-label::before { background: rgba(160,80,60,.5); }
+.rule-list { list-style: none; padding: 0; margin: 0; }
+.rule-list li { font-family: 'Noto Serif JP', serif; font-size: .82rem; line-height: 2; color: rgba(42,31,16,.65); letter-spacing: .03em; padding-left: 1rem; position: relative; }
+.rule-list li::before { content: '◇'; position: absolute; left: 0; font-size: .5em; top: .48em; color: rgba(98,74,43,.3); }
+
+.conditional-block { border: 1px solid rgba(156,98,15,.2); border-left: 3px solid rgba(156,98,15,.35); padding: 1rem 1.2rem; margin: 1.2rem 0; background: rgba(156,98,15,.025); }
+.conditional-label { font-family: 'Cinzel', serif; font-size: .44rem; letter-spacing: .4em; color: rgba(156,98,15,.6); text-transform: uppercase; display: block; margin-bottom: .5rem; }
+.conditional-block p { font-family: 'Noto Serif JP', serif; font-size: .85rem; line-height: 2; color: rgba(42,31,16,.65); letter-spacing: .03em; margin: 0; }
+
+@media (max-width: 1024px) {
+    .doc-body { padding: 2.5rem 1.2rem 4rem; }
+    .doc-header-wrap { padding-top: 100px; }
+    .rule-grid { grid-template-columns: 1fr; }
+}
+</style>
+</head>
+<body>
+<div id="page-overlay"></div>
+
+<div class="geo-cursor">
+    <div class="geo-cursor-dot"></div>
+    <div class="geo-cursor-ring"></div>
+</div>
+
+<nav class="top-nav">
+    <div class="nav-container">
+      <a href="/" class="nav-logo"><img src="name logo.png" alt="DEMITAS Logo"></a>
+      
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
+        <i data-lucide="menu" class="icon-menu"></i>
+        <i data-lucide="x" class="icon-close" style="display: none;"></i>
+      </button>
+      
+      <ul id="nav-links">
+        <li><a href="index.html#TOPIC">TOPIC</a></li>
+        <li><a href="index.html#gallery">GALLERY</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+        
+        <li class="mobile-social-menu">
+          <a href="あなたのXのURL" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+              </svg>
+            </span>
+            <span class="social-name">X (Twitter)</span>
+          </a>
+          
+          <a href="あなたのInstagramのURL" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </span>
+            <span class="social-name">Instagram</span>
+          </a>
+          
+          <a href="あなたのpixivのURL" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon"><i data-lucide="palette"></i></span>
+            <span class="social-name">pixiv</span>
+          </a>
+          
+          <a href="https://www.youtube.com/channel/UCnWDEpYvIh0Mpjo70ui6bPQ" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+              </svg>
+            </span>
+            <span class="social-name">YouTube</span>
+          </a>
+
+        </li>
+        </ul>
+    </div>
+  </nav>
+
+<main class="doc-header-wrap">
+    <span class="doc-eyebrow">Illustration Usage Rules</span>
+    <h1 class="doc-title">Guidelines</h1>
+    <div class="doc-title-rule"></div>
+    <span class="doc-lead">— イラストの利用規約 —</span>
+</main>
+
+<div class="doc-body">
+
+    <section class="doc-section">
+        <h2 class="doc-section-title">はじめに</h2>
+        <p class="doc-p">このページでは、Demiitas.が制作・公開するイラストや世界観設定等の著作物の利用に関するガイドラインを定めています。イラストをご利用になる前に必ずお読みください。</p>
+        <p class="doc-p">本ガイドラインは予告なく変更される場合があります。最新の内容をご確認ください。</p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section-title">著作権について</h2>
+        <h3 class="doc-h2">Copyright</h3>
+        <p class="doc-p">当サイトに掲載されているすべてのイラスト・テキスト・世界観設定・キャラクター設定の著作権はDemiitas.に帰属します。無断での複製・転載・二次配布・商用利用を禁じます。</p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section-title">個人利用</h2>
+        <h3 class="doc-h2">個人利用の範囲</h3>
+        <div class="rule-grid">
+            <div class="rule-block ok">
+                <div class="rule-block-label">OK</div>
+                <ul class="rule-list">
+                    <li>壁紙・個人的な鑑賞目的での保存</li>
+                    <li>ファンアート・非営利の二次創作</li>
+                </ul>
+            </div>
+            <div class="rule-block ng">
+                <div class="rule-block-label">NG</div>
+                <ul class="rule-list">
+                    <li>無断転載・無断改変</li>
+                    <li>商用利用（物販・広告等）</li>
+                    <li>AI学習データへの使用</li>
+                    <li>作者名の削除・偽称</li>
+                </ul>
+            </div>
+        </div>
+        <div class="conditional-block">
+            <span class="conditional-label">◇ 条件付きOK — 二次創作について</span>
+            <p>非営利・個人の二次創作は歓迎します。ただし、クレジット（原作：Demiitas.）の明記、成人向け表現を含む場合の年齢制限設定をお願いします。過度に原作のイメージを損なう表現はご遠慮ください。</p>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section-title">禁止事項</h2>
+        <h3 class="doc-h2">Prohibited Uses</h3>
+        <p class="doc-p">以下の行為は利用目的を問わず固く禁止します。</p>
+        <ul class="rule-list">
+            <li>AIの学習・生成モデルの訓練データへの無断使用</li>
+            <li>著作者名・サイト名を削除・改変しての配布</li>
+            <li>政治的・宗教的プロパガンダへの使用</li>
+            <li>特定の個人・団体を誹謗中傷する目的での使用</li>
+            <li>違法行為・公序良俗に反する目的での使用</li>
+        </ul>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section-title">お問い合わせ</h2>
+        <p class="doc-p">ガイドラインに関するご不明な点、または利用許諾のご相談はコンタクトフォームよりお気軽にどうぞ。</p>
+    </section>
+
+</div>
+
+<a href="index.html" class="back-link">BACK</a>
+
+<footer class="site-footer">
+    <div class="content-wrapper footer-wrapper">
+      <div class="footer-nav">
+        <a href="commission.html" class="footer-link">Commission</a>
+        <span class="footer-separator">|</span>
+        <a href="guidelines.html" class="footer-link">Guidelines</a>
+        <span class="footer-separator">|</span>
+        
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+      </div>
+      <div class="footer-copy">
+        <small>&copy; 2026 Demiitas. All Rights Reserved.</small>
+      </div>
+
+      <button id="page-top" class="page-top-btn" aria-label="Page Top">
+        <i data-lucide="chevron-up"></i>
+      </button>
+      </div>
+  </footer>
+
+<script src="script.js"></script>
+</body>
+</html>

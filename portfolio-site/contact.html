@@ -1,0 +1,454 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Contact — Demiitas</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+JP:wght@400;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css">
+
+<style>
+
+.doc-header-wrap { padding: 140px 0 0; text-align: center; }
+.doc-eyebrow { font-family: 'Cinzel', serif; font-size: .5rem; letter-spacing: .6em; color: rgba(156,98,15,.5); text-transform: uppercase; display: block; margin-bottom: .8rem; }
+.doc-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 400; color: var(--coffee-bean); letter-spacing: .1em; line-height: 1; margin-bottom: .5rem; }
+.doc-title-rule { width: 60px; height: 1px; background: linear-gradient(to right, transparent, rgba(156,98,15,.5), transparent); margin: .8rem auto 0; }
+.doc-lead { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .9rem; letter-spacing: .12em; color: rgba(98,74,43,.45); margin-top: .7rem; display: block; }
+
+.contact-body { max-width: 640px; margin: 0 auto; padding: 4rem 40px 6rem; }
+.contact-note { font-family: 'Noto Serif JP', serif; font-size: .82rem; line-height: 2.1; color: rgba(42,31,16,.75); letter-spacing: .04em; text-align: center; margin-bottom: 3rem; padding-bottom: 2rem; border-bottom: 1px solid rgba(98,74,43,.2); }
+.contact-note a { color: var(--camel-accent); text-decoration: none; border-bottom: 1px solid rgba(156,98,15,.5); transition: border-color .3s; }
+.contact-note a:hover { border-color: var(--camel-accent); }
+
+.field-group { margin-bottom: 2.2rem; }
+.field-label { display: flex; align-items: baseline; gap: .8rem; margin-bottom: .65rem; }
+.field-label-en { font-family: 'Cinzel', serif; font-size: .5rem; letter-spacing: .45em; color: rgba(156,98,15,.8); text-transform: uppercase; }
+.field-label-ja { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .78rem; letter-spacing: .1em; color: rgba(98,74,43,.65); }
+.field-required { font-family: 'Cinzel', serif; font-size: .38rem; letter-spacing: .25em; color: rgba(156,98,15,.7); margin-left: auto; text-transform: uppercase; }
+
+.field-input, .field-select, .field-textarea { width: 100%; background: transparent; border: none; border-bottom: 1px solid rgba(98,74,43,.5); border-radius: 0; padding: .6rem 0; font-family: 'Noto Serif JP', serif; font-size: .9rem; color: var(--shadow-black); letter-spacing: .04em; outline: none; transition: border-color .35s; appearance: none; -webkit-appearance: none; }
+.field-input:focus, .field-select:focus, .field-textarea:focus { border-bottom-color: rgba(156,98,15,.65); }
+.field-input::placeholder, .field-textarea::placeholder { color: rgba(98,74,43,.42); font-family: 'Cormorant Garamond', 'Noto Serif JP', serif; font-size: .88rem; letter-spacing: .06em; }
+
+.field-select-wrap { position: relative; }
+.field-select-wrap::after { content: '▼'; position: absolute; right: .4rem; top: 50%; transform: translateY(-50%); font-size: .4rem; color: rgba(98,74,43,.55); pointer-events: none; }
+.field-select { padding-right: 1.5rem; cursor: pointer; color: rgba(42,31,16,.85); }
+.field-select option { color: var(--shadow-black); background: var(--bg-color); }
+.field-select.placeholder { color: rgba(98,74,43,.42); }
+
+.field-textarea { border: 1px solid rgba(98,74,43,.4); padding: .8rem .9rem; resize: vertical; min-height: 200px; line-height: 1.9; margin-top: .2rem; transition: border-color .35s; }
+.field-textarea:focus { border-color: rgba(156,98,15,.5); }
+.field-divider { border: none; border-top: 1px solid rgba(98,74,43,.18); margin: 2.8rem 0; }
+
+.contact-submit-wrap { text-align: center; margin-top: 2.5rem; }
+.contact-privacy-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .76rem; color: rgba(98,74,43,.62); letter-spacing: .08em; display: block; margin-bottom: 1.5rem; }
+.contact-privacy-note a { color: rgba(156,98,15,.75); text-decoration: none; border-bottom: 1px solid rgba(156,98,15,.45); transition: border-color .3s; }
+.contact-privacy-note a:hover { border-color: rgba(156,98,15,.6); }
+
+.contact-btn { display: inline-flex; align-items: center; gap: .8rem; font-family: 'Cinzel', serif; font-size: .52rem; letter-spacing: .45em; color: var(--bg-color); background: var(--coffee-bean); border: none; padding: .95rem 2.8rem; cursor: pointer; text-transform: uppercase; transition: background .35s, letter-spacing .35s; position: relative; overflow: hidden; }
+.contact-btn::before { content: '◆'; font-size: .5em; opacity: .7; }
+.contact-btn:hover { background: rgba(75,51,20,1); letter-spacing: .55em; }
+.contact-btn:disabled { opacity: .45; cursor: not-allowed; letter-spacing: .45em; }
+
+.contact-success { display: none; text-align: center; padding: 3rem 2rem; border: 1px solid rgba(98,74,43,.28); }
+.contact-success-icon { font-family: 'Cinzel', serif; font-size: 1.4rem; color: rgba(156,98,15,.65); display: block; margin-bottom: 1.2rem; letter-spacing: .25em; }
+.contact-success-title { font-family: 'Cormorant Garamond', serif; font-size: 1.6rem; font-weight: 400; color: var(--coffee-bean); letter-spacing: .08em; margin-bottom: .7rem; }
+.contact-success-body { font-family: 'Noto Serif JP', serif; font-size: .85rem; line-height: 2.1; color: rgba(42,31,16,.75); letter-spacing: .04em; }
+
+.field-error { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .75rem; color: rgb(223, 30, 0); letter-spacing: .06em; margin-top: .35rem; display: none; }
+.field-group.has-error .field-input, .field-group.has-error .field-select, .field-group.has-error .field-textarea { border-bottom-color: rgba(160,80,60,.5); }
+.field-group.has-error .field-textarea { border-color: rgba(160,80,60,.4); }
+.field-group.has-error .field-error { display: block; }
+
+.field-file-input {
+    display: none;
+}
+.field-file-label {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 0.8rem;
+    padding: 1.5rem 1rem;
+    border: 1px dashed rgba(98,74,43,.4);
+    color: rgba(98,74,43,.7);
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.85rem;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    text-align: center;
+}
+.field-file-label:hover {
+    border-color: rgba(156,98,15,.6);
+    color: rgba(156,98,15,.9);
+    background: rgba(98,74,43,.03);
+}
+.field-file-label.has-file {
+    border-style: solid;
+    border-color: rgba(156,98,15,.4);
+    color: var(--coffee-bean);
+    background: rgba(156,98,15,.05);
+}
+
+.request-info-box {
+    background: rgba(98,74,43,.03);
+    border: 1px solid rgba(98,74,43,.15);
+    padding: 2.5rem 2rem;
+    margin-bottom: 3rem;
+    border-radius: 2px;
+    text-align: center;
+}
+.info-box-title {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 1.05rem;
+    color: var(--coffee-bean);
+    margin-bottom: 1.2rem;
+    letter-spacing: 0.1em;
+}
+.info-box-desc {
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.85rem;
+    color: rgba(42,31,16,.75);
+    line-height: 2.1;
+    margin-bottom: 1.5rem;
+    letter-spacing: 0.04em;
+}
+
+.info-box-desc a { 
+    color: var(--camel-accent); 
+    text-decoration: none; 
+    border-bottom: 1px solid rgba(156,98,15,.5); 
+    transition: border-color .3s; 
+}
+.info-box-desc a:hover { 
+    border-color: var(--camel-accent); 
+}
+
+.info-box-divider {
+    width: 40px;
+    height: 1px;
+    background: rgba(98,74,43,.3);
+    margin: 2rem auto;
+}
+
+.info-box-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    font-family: 'Noto Serif JP', serif;
+    font-size: 0.85rem;
+    color: rgba(42,31,16,.85);
+    line-height: 2;
+    display: inline-block;
+}
+.info-box-list li {
+    position: relative;
+    padding-left: 1.4rem;
+    text-align: left;
+}
+.info-box-list li::before {
+    content: '◇';
+    position: absolute;
+    left: 0;
+    color: rgba(156,98,15,.6);
+    font-size: 0.8rem;
+}
+
+@media (max-width: 1024px) {
+    .contact-body { padding: 2.5rem 1.2rem 4rem; }
+    .doc-header-wrap { padding-top: 100px; }
+
+    .request-info-box { padding: 1.5rem 1rem; }
+    .info-box-title { font-size: 0.9rem; }
+    .info-box-list { font-size: 0.8rem; }
+}
+</style>
+</head>
+<body>
+<div id="page-overlay"></div>
+
+<div class="geo-cursor">
+    <div class="geo-cursor-dot"></div>
+    <div class="geo-cursor-ring"></div>
+</div>
+
+<nav class="top-nav">
+    <div class="nav-container">
+      <a href="/" class="nav-logo"><img src="name logo.png" alt="DEMITAS Logo"></a>
+      
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
+        <i data-lucide="menu" class="icon-menu"></i>
+        <i data-lucide="x" class="icon-close" style="display: none;"></i>
+      </button>
+      
+      <ul id="nav-links">
+        <li><a href="index.html#TOPIC">TOPIC</a></li>
+        <li><a href="index.html#gallery">GALLERY</a></li>
+        <li><a href="#">CONTACT</a></li>
+        
+        <li class="mobile-social-menu">
+          <a href="あなたのXのURL" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+              </svg>
+            </span>
+            <span class="social-name">X (Twitter)</span>
+          </a>
+          
+          <a href="あなたのInstagramのURL" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </span>
+            <span class="social-name">Instagram</span>
+          </a>
+          
+          <a href="あなたのpixivのURL" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon"><i data-lucide="palette"></i></span>
+            <span class="social-name">pixiv</span>
+          </a>
+          
+          <a href="https://www.youtube.com/channel/UCnWDEpYvIh0Mpjo70ui6bPQ" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+              </svg>
+            </span>
+            <span class="social-name">YouTube</span>
+          </a>
+
+        </li>
+        </ul>
+    </div>
+  </nav>
+
+<main class="doc-header-wrap">
+    <span class="doc-eyebrow">Inquiry · Commission · Message</span>
+    <h1 class="doc-title">Contact</h1>
+    <div class="doc-title-rule"></div>
+    <span class="doc-lead">— お問い合わせ —</span>
+</main>
+
+<div class="contact-body">
+
+    <div class="request-info-box">
+        <h3 class="info-box-title">ご依頼に関して</h3>
+        
+        <p class="info-box-desc">
+            お問い合わせ・ご依頼はこちらのフォームからお送りください。<br>
+            通常3営業日以内にご返信いたします。<br>
+            ご依頼の際は事前に<a href="commission.html">Commission</a>をご確認ください。
+        </p>
+
+        <div class="info-box-divider"></div>
+        <h3 class="info-box-title">ご提示いただきたい内容について</h3>
+        <ul class="info-box-list">
+            <li>イラストの用途について</li>
+            <li>制作内容の詳細（例: 制作サイズ / 制作点数 / 差分の有無 等）</li>
+            <li>ご予算</li>
+            <li>ご希望の納期</li>
+            <li>実績公開の可否</li>
+        </ul>
+    </div>
+
+    <form id="contact-form" enctype="multipart/form-data" novalidate>
+        <div class="field-group" id="group-category">
+            <div class="field-label">
+                <span class="field-label-en">Category</span>
+                <span class="field-label-ja">お問い合わせの種類</span>
+                <span class="field-required">Required</span>
+            </div>
+            <div class="field-select-wrap">
+                <select class="field-select placeholder" id="field-category" name="category" required>
+                    <option value="" disabled selected>— 選択してください —</option>
+                    <option value="commission_personal">個人様からのご依頼 / Commission (Personal)</option>
+                    <option value="commission_corporate">法人様からのご依頼 / Commission (Corporate)</option>
+                    <option value="estimate">お見積もり・ご相談 / Estimate & Inquiry</option>
+                    <option value="guideline">利用規約について / Guidelines</option>
+                    <option value="other">その他 / Other</option>
+                </select>
+            </div>
+            <p class="field-error">お問い合わせの種類を選択してください。</p>
+        </div>
+
+        <hr class="field-divider">
+
+        <div class="field-group" id="group-name">
+            <div class="field-label">
+                <span class="field-label-ja">お名前</span>
+                <span class="field-label-en">Name</span>
+                <span class="field-required">Required</span>
+            </div>
+            <input type="text" class="field-input" id="field-name" name="name" placeholder="お名前" autocomplete="name" required>
+            <p class="field-error">お名前を入力してください。</p>
+        </div>
+
+        <div class="field-group" id="group-company">
+            <label class="field-label" for="field-company">
+                <span class="field-label-ja">企業名</span>
+                <span class="field-label-en">Company names</span>
+            </label>
+            <input type="text" class="field-input" id="field-company" name="company" placeholder="企業名" autocomplete="organization">
+        </div>
+
+        <div class="field-group" id="group-email">
+            <div class="field-label">
+                <span class="field-label-ja">メールアドレス</span>
+                <span class="field-label-en">Email address</span>
+                <span class="field-required">Required</span>
+            </div>
+            <input type="email" class="field-input" id="field-email" name="email" placeholder="xxxx@xxxxx" autocomplete="email" required>
+            <p class="field-error">正しいメールアドレスを入力してください。</p>
+        </div>
+
+        <hr class="field-divider">
+
+        <div class="field-group" id="group-message">
+            <div class="field-label">
+                <span class="field-label-ja">内容詳細</span>
+                <span class="field-label-en">Message</span>
+                <span class="field-required">Required</span>
+            </div>
+            <textarea class="field-textarea" id="field-message" name="message" placeholder="ご記入をお願いします" required></textarea>
+            <p class="field-error">内容を入力してください。</p>
+        </div>
+
+        <div class="field-group" id="group-file">
+            <div class="field-label">
+                <span class="field-label-ja">添付ファイル</span>
+            </div>
+            
+            <div class="field-file-wrap">
+                <input type="file" id="field-file" name="attachment[]" class="field-file-input" multiple accept="image/jpeg, image/png, application/pdf">
+                
+                <label for="field-file" class="field-file-label">
+                    <i data-lucide="paperclip"></i>
+                    <span id="file-label-text">添付ファイルがある場合は こちらからお願いします</span>
+                </label>
+            </div>
+            <p style="font-family: 'Noto Serif JP', serif; font-size: 0.75rem; color: rgba(98,74,43,.5); margin-top: 0.5rem; letter-spacing: 0.04em;">※zipファイルは添付することができません</p>
+        </div>
+
+        <div class="contact-submit-wrap">
+            <span class="contact-privacy-note">
+                送信することで<a href="privacy.html">プライバシーポリシー</a>に同意したものとみなします。
+            </span>
+            <button type="submit" class="contact-btn" id="submit-btn">送信する</button>
+        </div>
+    </form>
+
+    <div class="contact-success" id="contact-success">
+        <span class="contact-success-icon">◇ ◆ ◇</span>
+        <p class="contact-success-title">送信が完了しました</p>
+        <p class="contact-success-body">
+            お問い合わせありがとうございます。<br>
+            3営業日以内にご返信いたします。<br>
+            しばらくお待ちください。
+        </p>
+    </div>
+</div>
+
+<a href="index.html" class="back-link">BACK</a>
+
+<footer class="site-footer">
+    <div class="content-wrapper footer-wrapper">
+      <div class="footer-nav">
+        <a href="commission.html" class="footer-link">Commission</a>
+        <span class="footer-separator">|</span>
+        <a href="guidelines.html" class="footer-link">Guidelines</a>
+        <span class="footer-separator">|</span>
+        
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+      </div>
+      <div class="footer-copy">
+        <small>&copy; 2026 Demiitas. All Rights Reserved.</small>
+      </div>
+
+      <button id="page-top" class="page-top-btn" aria-label="Page Top">
+        <i data-lucide="chevron-up"></i>
+      </button>
+      </div>
+  </footer>
+
+<script>
+const sel = document.getElementById('field-category');
+sel.addEventListener('change', function() { this.classList.remove('placeholder'); });
+
+function validate() {
+    let valid = true;
+    const groups = [
+        { id: 'group-category', field: 'field-category', check: v => v !== '' },
+        { id: 'group-name', field: 'field-name', check: v => v.trim().length > 0 },
+        { id: 'group-email', field: 'field-email', check: v => /^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(v.trim()) },
+        { id: 'group-message', field: 'field-message', check: v => v.trim().length > 0 },
+    ];
+    groups.forEach(({ id, field, check }) => {
+        const group = document.getElementById(id);
+        const val = document.getElementById(field).value;
+        if (!check(val)) { group.classList.add('has-error'); valid = false; }
+        else { group.classList.remove('has-error'); }
+    });
+    return valid;
+}
+
+document.getElementById('contact-form').addEventListener('submit', function(e) {
+    e.preventDefault();
+    if (!validate()) return;
+    const btn = document.getElementById('submit-btn');
+    btn.disabled = true; btn.textContent = 'Sending...';
+    const formData = new FormData(this);
+    fetch('send.php', { method: 'POST', body: formData })
+    .then(response => response.json())
+    .then(data => {
+        if (data.status === 'success') {
+            document.getElementById('contact-form').style.display = 'none';
+            const s = document.getElementById('contact-success');
+            s.style.display = 'block';
+            s.scrollIntoView({ behavior: 'smooth', block: 'center' });
+        } else {
+            alert('送信に失敗しました。時間をおいて再度お試しください。');
+            btn.disabled = false; btn.textContent = 'Send Message';
+        }
+    })
+    .catch(error => {
+        console.error('Error:', error);
+        alert('通信エラーが発生しました。');
+        btn.disabled = false; btn.textContent = 'Send Message';
+    });
+});
+
+['field-category','field-name','field-email','field-message'].forEach(id => {
+    const el = document.getElementById(id);
+    el.addEventListener('input', function() { this.closest('.field-group').classList.remove('has-error'); });
+    el.addEventListener('change', function() { this.closest('.field-group').classList.remove('has-error'); });
+});
+
+const fileInput = document.getElementById('field-file');
+const fileLabelText = document.getElementById('file-label-text');
+const fileLabel = document.querySelector('.field-file-label');
+
+if (fileInput) {
+    fileInput.addEventListener('change', function() {
+        if (this.files && this.files.length > 0) {
+
+            const fileNames = Array.from(this.files).map(f => f.name).join(', ');
+            fileLabelText.textContent = fileNames;
+            fileLabel.classList.add('has-file');
+        } else {
+
+            fileLabelText.textContent = 'クリックしてファイルを選択';
+            fileLabel.classList.remove('has-file');
+        }
+    });
+}
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>

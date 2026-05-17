@@ -1,0 +1,256 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>ポートフォリオサイト公開 — Demiitas</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+JP:wght@400;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="../style.css">
+
+<style>
+/* ページ固有スタイル */
+.doc-header-wrap { padding: 140px 0 0; text-align: center; }
+.doc-eyebrow { font-family: 'Cinzel', serif; font-size: .5rem; letter-spacing: .6em; color: rgba(156,98,15,.5); text-transform: uppercase; display: block; margin-bottom: .8rem; }
+.doc-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 400; color: var(--coffee-bean); letter-spacing: .1em; line-height: 1; margin-bottom: .5rem; }
+.doc-title-rule { width: 60px; height: 1px; background: linear-gradient(to right, transparent, rgba(156,98,15,.5), transparent); margin: .8rem auto 0; }
+.doc-lead { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .9rem; letter-spacing: .12em; color: rgba(98,74,43,.45); margin-top: .7rem; display: block; }
+
+.status-bar { margin: 2.5rem auto 0; max-width: 320px; border: 1px solid rgba(98,74,43,.2); padding: .65rem 1.5rem; display: flex; align-items: center; justify-content: center; gap: 1rem; background: var(--bg-color); }
+.status-dot { width: 8px; height: 8px; border-radius: 0; transform: rotate(45deg); flex-shrink: 0; }
+.status-dot.live { background: #7a9e6a; }
+.status-label { font-family: 'Cinzel', serif; font-size: .52rem; letter-spacing: .4em; color: var(--coffee-bean); text-transform: uppercase; }
+.status-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .75rem; color: rgba(98,74,43,.45); letter-spacing: .08em; }
+
+.doc-body { max-width: 720px; margin: 0 auto; padding: 4rem 40px 6rem; }
+.doc-section { margin-bottom: 3.5rem; padding-bottom: 3.5rem; }
+.doc-section:last-child { border-bottom: none; }
+.doc-section-title { font-family: 'Cinzel', serif; font-size: .5rem; letter-spacing: .55em; color: rgba(156,98,15,.55); text-transform: uppercase; display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.doc-section-title::before { content: '◆'; font-size: .45em; color: rgba(156,98,15,.4); }
+.doc-section-title::after { content: ''; flex: 1; height: 1px; background: rgba(98,74,43,.12); }
+.doc-h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--coffee-bean); letter-spacing: .06em; margin-bottom: 1rem; line-height: 1.2; }
+.doc-p { font-family: 'Noto Serif JP', serif; font-size: .88rem; line-height: 2.2; color: rgba(42,31,16,.72); letter-spacing: .04em; margin-bottom: 1rem; }
+.doc-p:last-child { margin-bottom: 0; }
+
+.feature-list { list-style: none; padding: 0; margin: 1.2rem 0; display: flex; flex-direction: column; gap: .8rem; }
+.feature-item { display: flex; gap: 1rem; align-items: flex-start; }
+.feature-icon { font-family: 'Cinzel', serif; font-size: .7rem; color: var(--camel-accent); flex-shrink: 0; margin-top: .2rem; }
+.feature-text { font-family: 'Noto Serif JP', serif; font-size: .88rem; line-height: 2; color: rgba(42,31,16,.72); letter-spacing: .04em; }
+.feature-text strong { font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--coffee-bean); }
+
+.highlight-box { border: 2px solid var(--coffee-bean); padding: 1.5rem; margin: 2rem 0; background: rgba(244,237,228,.4); position: relative; }
+.highlight-box::after { content: ''; position: absolute; inset: 6px; border: 1px dashed rgba(98,74,43,.2); pointer-events: none; }
+.highlight-title { font-family: 'Cinzel', serif; font-size: .6rem; letter-spacing: .4em; color: var(--camel-accent); text-transform: uppercase; margin-bottom: .8rem; display: block; position: relative; z-index: 1; }
+.highlight-text { font-family: 'Noto Serif JP', serif; font-size: .88rem; line-height: 2; color: rgba(42,31,16,.72); position: relative; z-index: 1; }
+
+.topic-image { width: 100%; aspect-ratio: 16/9; background-size: cover; background-position: center; border: 1px solid var(--border-line); margin: 2rem 0; filter: sepia(.08) contrast(1.03); }
+
+.doc-cta { text-align: center; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid rgba(98,74,43,.12); }
+.doc-cta-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .82rem; color: rgba(98,74,43,.45); letter-spacing: .1em; display: block; margin-bottom: 1.5rem; }
+.doc-cta-btn { display: inline-flex; align-items: center; gap: .8rem; font-family: 'Cinzel', serif; font-size: .52rem; letter-spacing: .45em; color: var(--bg-color); background: var(--coffee-bean); padding: .9rem 2.5rem; text-decoration: none; text-transform: uppercase; transition: background .35s, letter-spacing .35s; position: relative; }
+.doc-cta-btn::before { content: '◆'; font-size: .55em; opacity: .7; }
+.doc-cta-btn:hover { background: rgba(75,51,20,1); letter-spacing: .55em; }
+
+.date-meta { font-family: 'Cinzel', serif; font-size: .6rem; letter-spacing: .3em; color: var(--camel-accent); text-transform: uppercase; display: block; margin-top: 1.5rem; }
+
+@media (max-width: 768px) {
+    .doc-body { padding: 2.5rem 1.2rem 4rem; }
+    .doc-header-wrap { padding-top: 100px; }
+}
+</style>
+</head>
+<body>
+<div id="page-overlay"></div>
+
+<div class="geo-cursor">
+    <div class="geo-cursor-dot"></div>
+    <div class="geo-cursor-ring"></div>
+</div>
+
+<nav class="top-nav">
+    <div class="nav-container">
+      <a href="/" class="nav-logo"><img src="logo.png" alt="DEMITAS Logo"></a>
+      
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
+        <i data-lucide="menu" class="icon-menu"></i>
+        <i data-lucide="x" class="icon-close" style="display: none;"></i>
+      </button>
+      
+      <ul id="nav-links">
+        <li><a href="../portfolio.html#news">NEWS</a></li>
+        <li><a href="../portfolio.html#gallery">GALLERY</a></li>
+        <li><a href="../contact.html">CONTACT</a></li>
+        
+        <li class="mobile-social-menu">
+          <a href="あなたのXのURL" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+              </svg>
+            </span>
+            <span class="social-name">X (Twitter)</span>
+          </a>
+          
+          <a href="あなたのInstagramのURL" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </span>
+            <span class="social-name">Instagram</span>
+          </a>
+          
+          <a href="あなたのpixivのURL" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon"><i data-lucide="palette"></i></span>
+            <span class="social-name">pixiv</span>
+          </a>
+          
+          <a href="https://www.youtube.com/channel/UCnWDEpYvIh0Mpjo70ui6bPQ" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+              </svg>
+            </span>
+            <span class="social-name">YouTube</span>
+          </a>
+
+        </li>
+        </ul>
+    </div>
+  </nav>
+
+<main class="doc-header-wrap">
+    <span class="doc-eyebrow">NEWS · RELEASE</span>
+    <h1 class="doc-title">Portfolio Site Launch</h1>
+    <div class="doc-title-rule"></div>
+    <span class="doc-lead">— 公式ポートフォリオサイト公開開始 —</span>
+    <span class="date-meta">2026.05.01</span>
+</main>
+
+<div class="doc-body">
+
+    <section class="doc-section">
+        <h2 class="doc-section-title">サイト公開のお知らせ</h2>
+        <h3 class="doc-h2">Demiitas 公式ポートフォリオサイト</h3>
+        <p class="doc-p">
+            この度、イラストレーター Demiitas の公式ポートフォリオサイトを公開いたしました。これまでSNSを中心に活動してまいりましたが、作品をより体系的にご覧いただける場として、また創作世界観「エストルシア」の情報発信拠点として、このWebサイトを立ち上げました。
+        </p>
+        
+        <div class="topic-image" style="background-image: url('../芸術品.jpg');"></div>
+        
+        <p class="doc-p">
+            19世紀ヨーロッパの新聞や年代記をモチーフにしたデザインで、作品の世界観を体感していただけるサイト設計を心がけました。ぜひごゆっくりご覧ください。
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section-title">サイトコンテンツ</h2>
+        <h3 class="doc-h2">掲載コンテンツのご紹介</h3>
+        
+        <ul class="feature-list">
+            <li class="feature-item">
+                <span class="feature-icon">◆</span>
+                <div class="feature-text">
+                    <strong>Selected Works</strong><br>
+                    商業・個人を問わず、これまでに制作した代表作品を掲載。ファンタジーイラスト、キャラクターデザイン、コンセプトアートなど
+                </div>
+            </li>
+            <li class="feature-item">
+                <span class="feature-icon">◆</span>
+                <div class="feature-text">
+                    <strong>Estrucia Chronicle</strong><br>
+                    創作世界「エストルシア」の設定資料。都市・歴史・登場人物・裏社会組織・生態系など、世界観の詳細を公開
+                </div>
+            </li>
+            <li class="feature-item">
+                <span class="feature-icon">◆</span>
+                <div class="feature-text">
+                    <strong>Astral Stream</strong><br>
+                    制作過程や世界観解説を配信するYouTubeチャンネルへのリンク。メイキング動画や設定解説など
+                </div>
+            </li>
+            <li class="feature-item">
+                <span class="feature-icon">◆</span>
+                <div class="feature-text">
+                    <strong>Commission</strong><br>
+                    イラスト制作のご依頼について。料金目安・制作の流れ・注意事項などを詳しく掲載
+                </div>
+            </li>
+            <li class="feature-item">
+                <span class="feature-icon">◆</span>
+                <div class="feature-text">
+                    <strong>Profile</strong><br>
+                    制作者情報・制作哲学・SNSリンク・お問い合わせ先
+                </div>
+            </li>
+        </ul>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section-title">デザインコンセプト</h2>
+        <h3 class="doc-h2">「珈琲店の新聞」をテーマに</h3>
+        <p class="doc-p">
+            このサイトは「19世紀ヨーロッパの街角の珈琲店に置かれた新聞」をイメージしてデザインしました。活版印刷の温かみ、経年変化した紙の質感、丁寧に組まれたタイポグラフィ。デジタルでありながら、アナログの美しさを感じていただけるよう細部まで調整しています。
+        </p>
+        
+        <div class="highlight-box">
+            <span class="highlight-title">Design Philosophy</span>
+            <p class="highlight-text">
+                色を重ねることは、一杯の深い珈琲を淹れる作法に似ている。甘さよりも、アンティークや歴史が醸し出す重厚な美しさを。画面の中に確かな「生活感」と「歴史」を描き出す。静寂のなかで丁寧にドリップした物語の気配を、どうぞ心ゆくまで味わってほしい。
+            </p>
+        </div>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section-title">技術仕様</h2>
+        <h3 class="doc-h2">こだわりの実装</h3>
+        <p class="doc-p">
+            レスポンシブデザインに対応し、PC・タブレット・スマートフォンのいずれでも快適にご覧いただけます。カスタムカーソル、スクロール連動アニメーション、オープニング演出など、視覚体験にこだわった実装を行っています。
+        </p>
+        <p class="doc-p">
+            パフォーマンス最適化にも注力し、美しさと軽快さを両立しました。画像の遅延読み込み、CSSアニメーションのGPUアクセラレーション、JavaScriptの最適化など、技術面でも妥協のない仕上がりです。
+        </p>
+    </section>
+
+    <section class="doc-section">
+        <h2 class="doc-section-title">今後の展開</h2>
+        <h3 class="doc-h2">コンテンツの拡充予定</h3>
+        <p class="doc-p">
+            今後、作品ギャラリーの追加、エストルシア設定資料の拡充、メイキング記事の公開など、定期的にコンテンツを追加していく予定です。また、ご依頼受付状況やイベント参加情報なども随時更新してまいります。
+        </p>
+        <p class="doc-p">
+            ブックマーク・SNSフォローいただけますと幸いです。今後ともどうぞよろしくお願いいたします。
+        </p>
+    </section>
+
+</div>
+
+<a href="../portfolio.html" class="back-link">BACK</a>
+
+<footer class="site-footer">
+    <div class="content-wrapper footer-wrapper">
+      <div class="footer-nav">
+        <a href="../commission.html" class="footer-link">Commission</a>
+        <span class="footer-separator">|</span>
+        <a href="../guidelines.html" class="footer-link">Guidelines</a>
+        <span class="footer-separator">|</span>
+        
+        <a href="../privacy.html" class="footer-link">Privacy Policy</a>
+      </div>
+      <div class="footer-copy">
+        <small>&copy; 2026 Demiitas. All Rights Reserved.</small>
+      </div>
+
+      <button id="page-top" class="page-top-btn" aria-label="Page Top">
+        <i data-lucide="chevron-up"></i>
+      </button>
+      </div>
+  </footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

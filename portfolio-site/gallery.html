@@ -1,0 +1,372 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gallery — Demiitas</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+JP:wght@400;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css">
+
+<style>
+/* ページ固有スタイル */
+.gl-header { padding: 140px 0 0; text-align: center; }
+.gl-eyebrow { font-family: 'Cinzel', serif; font-size: .5rem; letter-spacing: .6em; color: rgba(156,98,15,.55); text-transform: uppercase; display: block; margin-bottom: .8rem; }
+.gl-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 400; color: var(--coffee-bean); letter-spacing: .1em; line-height: 1; }
+.gl-rule { width: 60px; height: 1px; background: linear-gradient(to right, transparent, rgba(156,98,15,.5), transparent); margin: .8rem auto 0; }
+.gl-lead { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .88rem; letter-spacing: .12em; color: rgba(98,74,43,.55); margin-top: .65rem; display: block; }
+.gl-count-line { font-family: 'Cinzel', serif; font-size: .44rem; letter-spacing: .45em; color: rgba(98,74,43,.42); margin-top: .5rem; display: block; }
+
+.gl-filter-bar { display: flex; align-items: stretch; justify-content: center; gap: 0; margin: 2.8rem auto 0; max-width: 1120px; padding: 0 40px; border-top: 1px solid rgba(98,74,43,.14); border-bottom: 1px solid rgba(98,74,43,.14); overflow-x: auto; }
+.gl-filter-bar::-webkit-scrollbar { display: none; }
+.gl-fbtn { font-family: 'Cinzel', serif; font-size: .46rem; letter-spacing: .4em; color: rgba(98,74,43,.48); text-transform: uppercase; background: none; border: none; padding: .78rem 1.3rem; cursor: pointer; position: relative; transition: color .3s; white-space: nowrap; flex-shrink: 0; }
+.gl-fbtn::after { content: ''; position: absolute; bottom: -1px; left: 0; right: 0; height: 2px; background: var(--coffee-bean); transform: scaleX(0); transform-origin: center; transition: transform .35s cubic-bezier(.16,1,.3,1); }
+.gl-fbtn:hover { color: rgba(98,74,43,.78); }
+.gl-fbtn.active { color: var(--coffee-bean); }
+.gl-fbtn.active::after { transform: scaleX(1); }
+.gl-fbtn-n { font-size: .36rem; color: rgba(156,98,15,.45); margin-left: .3rem; letter-spacing: .2em; }
+
+.gl-masonry-wrap { max-width: auto; margin: 0 auto; padding: 2.5rem 40px 6rem; }
+.gl-masonry { columns: 4; column-gap: 12px; }
+.gl-item { break-inside: avoid; margin-bottom: 12px; position: relative; overflow: hidden; cursor: pointer; background: rgba(42,31,16,.04); opacity: 0; animation: glIn .55s ease forwards; }
+@keyframes glIn { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: translateY(0); } }
+.gl-item.hidden { display: none; }
+.gl-img { width: 100%; height: auto; display: block; transition: transform .85s cubic-bezier(.16,1,.3,1), filter .5s; filter: brightness(.96) saturate(.9); }
+.gl-item:hover .gl-img { transform: scale(1.04); filter: brightness(1.02) saturate(1); }
+
+.gl-overlay { position: absolute; inset: 0; background: linear-gradient(to top, rgba(10,7,3,.85) 0%, rgba(10,7,3,.35) 40%, transparent 65%); opacity: 0; transition: opacity .38s ease; display: flex; flex-direction: column; justify-content: flex-end; padding: 1.3rem 1.1rem 1rem; }
+.gl-item:hover .gl-overlay { opacity: 1; }
+.gl-ov-tag { font-family: 'Cinzel', serif; font-size: .4rem; letter-spacing: .42em; color: rgba(212,185,106,.7); text-transform: uppercase; margin-bottom: .28rem; }
+.gl-ov-title { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 400; color: rgba(244,237,228,.9); letter-spacing: .05em; line-height: 1.2; margin-bottom: .2rem; }
+.gl-ov-sub { font-family: 'Cinzel', serif; font-size: .35rem; letter-spacing: .3em; color: rgba(212,185,106,.4); text-transform: uppercase; }
+.gl-ov-expand { position: absolute; top: .8rem; right: .8rem; width: 24px; height: 24px; border: 1px solid rgba(212,185,106,.4); display: flex; align-items: center; justify-content: center; font-family: 'Cinzel', serif; font-size: .4rem; color: rgba(212,185,106,.6); opacity: 0; transform: scale(.82); transition: opacity .32s, transform .32s; }
+.gl-item:hover .gl-ov-expand { opacity: 1; transform: scale(1); }
+
+.gl-empty { text-align: center; padding: 5rem 0; display: none; }
+.gl-empty-icon { font-size: 1.1rem; color: rgba(98,74,43,.22); letter-spacing: .4em; display: block; margin-bottom: .9rem; }
+.gl-empty-text { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .9rem; color: rgba(98,74,43,.4); letter-spacing: .1em; }
+
+.gl-modal { position: fixed; inset: 0; z-index: 20000; background: rgba(6,4,2,.97); display: flex; align-items: center; justify-content: center; opacity: 0; visibility: hidden; transition: opacity .38s, visibility .38s; padding: 16px; cursor: none !important; }
+.gl-modal *, .gl-modal button { cursor: none !important; }
+.gl-modal.open { opacity: 1; visibility: visible; }
+.gl-modal-inner { display: flex; align-items: stretch; gap: 0; max-width: 1060px; width: 100%; max-height: 92vh; transform: translateY(14px) scale(.975); transition: transform .42s cubic-bezier(.16,1,.3,1); }
+.gl-modal.open .gl-modal-inner { transform: translateY(0) scale(1); }
+
+.gl-modal-img-wrap { flex: 1; overflow: hidden; position: relative; min-width: 0; display: flex; align-items: center; justify-content: center; background: rgba(8,6,3,1); }
+.gl-modal-img { max-width: 100%; max-height: 92vh; object-fit: contain; display: block; }
+
+.gl-modal-panel { width: 280px; flex-shrink: 0; background: rgba(16,11,6,.97); border-left: 1px solid rgba(212,185,106,.1); display: flex; flex-direction: column; overflow-y: auto; }
+.gl-modal-panel-top { padding: 1.8rem 1.5rem 1.5rem; border-bottom: 1px solid rgba(212,185,106,.08); flex-shrink: 0; }
+.gl-modal-tag { font-family: 'Cinzel', serif; font-size: .42rem; letter-spacing: .48em; color: rgba(212,185,106,.6); text-transform: uppercase; display: block; margin-bottom: .55rem; }
+.gl-modal-title { font-family: 'Cormorant Garamond', serif; font-size: 1.45rem; font-weight: 400; color: rgba(244,237,228,.88); letter-spacing: .06em; line-height: 1.2; margin-bottom: 0; }
+
+.gl-modal-meta { padding: 1.2rem 1.5rem; flex: 1; display: flex; flex-direction: column; gap: 1rem; }
+.gl-meta-label { font-family: 'Cinzel', serif; font-size: .38rem; letter-spacing: .45em; color: rgba(212,185,106,.4); text-transform: uppercase; display: block; margin-bottom: .28rem; }
+.gl-meta-value { font-family: 'Cormorant Garamond', serif; font-size: .88rem; letter-spacing: .05em; color: rgba(212,195,168,.62); line-height: 1.6; }
+.gl-meta-desc { font-family: 'Noto Serif JP', serif; font-size: .78rem; letter-spacing: .04em; color: rgba(212,195,168,.5); line-height: 2; }
+
+.gl-modal-nav { padding: 1rem 1.5rem 1.4rem; display: flex; gap: .5rem; border-top: 1px solid rgba(212,185,106,.08); flex-shrink: 0; }
+.gl-modal-prev, .gl-modal-next { flex: 1; background: none; border: 1px solid rgba(212,185,106,.18); color: rgba(212,185,106,.45); font-family: 'Cinzel', serif; font-size: .42rem; letter-spacing: .3em; padding: .48rem .3rem; cursor: pointer; text-transform: uppercase; transition: border-color .3s, color .3s; }
+.gl-modal-prev:hover, .gl-modal-next:hover { border-color: rgba(212,185,106,.5); color: rgba(212,185,106,.85); }
+.gl-modal-prev:disabled, .gl-modal-next:disabled { opacity: .2; cursor: not-allowed; }
+
+.gl-modal-close { position: fixed; top: 16px; right: 20px; background: none; border: 1px solid rgba(212,185,106,.22); color: rgba(212,185,106,.5); font-family: 'Cinzel', serif; font-size: .44rem; letter-spacing: .32em; padding: .4rem .85rem; cursor: pointer; text-transform: uppercase; transition: border-color .3s, color .3s; z-index: 1; }
+.gl-modal-close:hover { border-color: rgba(212,185,106,.55); color: rgba(212,185,106,.9); }
+
+@media (max-width: 640px) {
+    .gl-header { padding-top: 100px; }
+    .gl-masonry { columns: 2; }
+    .gl-masonry-wrap { padding: 2rem 16px 4rem; }
+    .gl-filter-bar { padding: 0 16px; justify-content: flex-start; }
+    .gl-modal-inner { flex-direction: column; max-height: 96vh; }
+    .gl-modal-img-wrap { flex: 1; }
+    .gl-modal-panel { width: 100%; max-height: 220px; border-left: none; border-top: 1px solid rgba(212,185,106,.1); }
+    .gl-modal-img { max-height: 55vh; }
+}
+</style>
+</head>
+<body>
+<div id="page-overlay"></div>
+
+<div class="geo-cursor">
+    <div class="geo-cursor-dot"></div>
+    <div class="geo-cursor-ring"></div>
+</div>
+
+<nav class="top-nav">
+    <div class="nav-container">
+      <a href="/" class="nav-logo"><img src="name logo.png" alt="DEMITAS Logo"></a>
+      
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
+        <i data-lucide="menu" class="icon-menu"></i>
+        <i data-lucide="x" class="icon-close" style="display: none;"></i>
+      </button>
+      
+      <ul id="nav-links">
+        <li><a href="index.html#TOPIC">TOPIC</a></li>
+        <li><a href="index.html#gallery">GALLERY</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+        
+        <li class="mobile-social-menu">
+          <a href="あなたのXのURL" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+              </svg>
+            </span>
+            <span class="social-name">X (Twitter)</span>
+          </a>
+          
+          <a href="あなたのInstagramのURL" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </span>
+            <span class="social-name">Instagram</span>
+          </a>
+          
+          <a href="あなたのpixivのURL" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon"><i data-lucide="palette"></i></span>
+            <span class="social-name">pixiv</span>
+          </a>
+          
+          <a href="https://www.youtube.com/channel/UCnWDEpYvIh0Mpjo70ui6bPQ" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+              </svg>
+            </span>
+            <span class="social-name">YouTube</span>
+          </a>
+
+        </li>
+        </ul>
+    </div>
+  </nav>
+
+<div class="gl-header">
+    <span class="gl-eyebrow">Illustration · Character Design · Concept Art</span>
+    <h1 class="gl-title">Gallery</h1>
+    <div class="gl-rule"></div>
+    <span class="gl-lead">— Demiitas. の作品まとめ —</span>
+    <span class="gl-count-line" id="gl-count">0 Works</span>
+</div>
+
+<div class="gl-filter-bar">
+    <button class="gl-fbtn active" data-filter="all">すべて <span class="gl-fbtn-n" id="n-all"></span></button>
+    <button class="gl-fbtn" data-filter="Illustration">一枚絵 <span class="gl-fbtn-n" id="n-Illustration"></span></button>
+    <button class="gl-fbtn" data-filter="Character Design">キャラクターデザイン <span class="gl-fbtn-n" id="n-Character Design"></span></button>
+    <button class="gl-fbtn" data-filter="SD">ミニキャラ <span class="gl-fbtn-n" id="n-SD"></span></button>
+    <button class="gl-fbtn" data-filter="Works">仕事絵 <span class="gl-fbtn-n" id="n-Works"></span></button>
+</div>
+
+<div class="gl-masonry-wrap">
+<div class="gl-masonry" id="gl-masonry">
+
+    <div class="gl-item" data-category="Illustration" data-title="Boutique de modiste" data-year="2025" data-tag="Illustration" data-tech="CLIP STUDIO PAINT / デジタル" data-time="約30時間" data-desc="光と空気感を意識し制作した作品。印象的な絵作りができるようコントラストを意識しつつ制作しました。">
+        <img class="gl-img" src="illustration/芸術品.jpg" alt="" loading="lazy">
+        <div class="gl-overlay">
+            <div class="gl-ov-expand">⊕</div>
+            <span class="gl-ov-tag">Concept Art</span>
+            <p class="gl-ov-title">Boutique de modiste</p>
+            <span class="gl-ov-sub">2025 · 約30h</span>
+        </div>
+    </div>
+
+    <div class="gl-item" data-category="Illustration" data-title="Crazy caffeine addict" data-year="2025" data-tag="Illustration" data-tech="CLIP STUDIO PAINT / 厚塗り" data-time="約14時間" data-desc="暖色をメインとしつつ様々な色を散りばめることによりビビットな印象を持たせれるよう制作しました。">
+        <img class="gl-img" src="illustration/Crazy caffeine addict.webp" alt="" loading="lazy">
+        <div class="gl-overlay">
+            <div class="gl-ov-expand">⊕</div>
+            <span class="gl-ov-tag">Illustration</span>
+            <p class="gl-ov-title">Crazy caffeine addict</p>
+            <span class="gl-ov-sub">2025 · 約14h</span>
+        </div>
+    </div>
+
+        <div class="gl-item" data-category="Illustration" data-title="" data-year="2025" data-tag="Illustration" data-tech="CLIP STUDIO PAINT / デジタル" data-time="約7時間" data-desc="">
+        <img class="gl-img" src="illustration/ヤバベリ.webp" alt="" loading="lazy">
+        <div class="gl-overlay">
+            <div class="gl-ov-expand">⊕</div>
+            <span class="gl-ov-tag">Concept Art</span>
+            <p class="gl-ov-title"></p>
+            <span class="gl-ov-sub">2025 · 約7h</span>
+        </div>
+    </div>
+
+    <div class="gl-item" data-category="Character Design" data-title="" data-year="2026" data-tag="Illustration" data-tech="CLIP STUDIO PAINT / 厚塗り" data-time="約14時間" data-desc="">
+        <img class="gl-img" src="illustration/ジュール ヴァイス.png" alt="" loading="lazy">
+        <div class="gl-overlay">
+            <div class="gl-ov-expand">⊕</div>
+            <span class="gl-ov-tag">Illustration</span>
+            <p class="gl-ov-title"></p>
+            <span class="gl-ov-sub">2026 · 約14h</span>
+        </div>
+    </div>
+
+    <div class="gl-item" data-category="Illustration" data-title="花の君" data-year="2026" data-tag="Illustration" data-tech="CLIP STUDIO PAINT / 厚塗り" data-time="約7時間" data-desc="2026年のメイドの日(5/10)に合わせて制作した作品。">
+        <img class="gl-img" src="illustration/SKL1.webp" alt="" loading="lazy">
+        <div class="gl-overlay">
+            <div class="gl-ov-expand">⊕</div>
+            <span class="gl-ov-tag">Illustration</span>
+            <p class="gl-ov-title">花の君</p>
+            <span class="gl-ov-sub">2026 · 約7h</span>
+        </div>
+    </div>
+
+</div>
+
+<div class="gl-empty" id="gl-empty">
+    <span class="gl-empty-icon">◇ ◆ ◇</span>
+    <span class="gl-empty-text">— 該当する作品がありません —</span>
+</div>
+
+</div>
+
+<div class="gl-modal" id="gl-modal" role="dialog" aria-modal="true">
+    <button class="gl-modal-close" id="gl-close">Close ✕</button>
+    <div class="gl-modal-inner">
+        <div class="gl-modal-img-wrap">
+            <img class="gl-modal-img" id="gl-mimg" src="" alt="">
+        </div>
+        <div class="gl-modal-panel">
+            <div class="gl-modal-panel-top">
+                <span class="gl-modal-tag" id="gl-mtag"></span>
+                <p class="gl-modal-title" id="gl-mtitle"></p>
+            </div>
+            <div class="gl-modal-meta">
+                <div class="gl-meta-item">
+                    <span class="gl-meta-label">Year</span>
+                    <span class="gl-meta-value" id="gl-myear"></span>
+                </div>
+                <div class="gl-meta-item">
+                    <span class="gl-meta-label">Software · Technique</span>
+                    <span class="gl-meta-value" id="gl-mtech"></span>
+                </div>
+                <div class="gl-meta-item">
+                    <span class="gl-meta-label">Production Time</span>
+                    <span class="gl-meta-value" id="gl-mtime"></span>
+                </div>
+                <div class="gl-meta-item">
+                    <span class="gl-meta-label">Note</span>
+                    <span class="gl-meta-desc" id="gl-mdesc"></span>
+                </div>
+            </div>
+            <div class="gl-modal-nav">
+                <button class="gl-modal-prev" id="gl-prev">← Prev</button>
+                <button class="gl-modal-next" id="gl-next">Next →</button>
+            </div>
+        </div>
+    </div>
+</div>
+
+<a href="index.html" class="back-link">BACK</a>
+
+<footer class="site-footer">
+    <div class="content-wrapper footer-wrapper">
+      <div class="footer-nav">
+        <a href="commission.html" class="footer-link">Commission</a>
+        <span class="footer-separator">|</span>
+        <a href="guidelines.html" class="footer-link">Guidelines</a>
+        <span class="footer-separator">|</span>
+        
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+      </div>
+      <div class="footer-copy">
+        <small>&copy; 2026 Demiitas. All Rights Reserved.</small>
+      </div>
+
+      <button id="page-top" class="page-top-btn" aria-label="Page Top">
+        <i data-lucide="chevron-up"></i>
+      </button>
+      </div>
+  </footer>
+
+<script>
+(function(){
+    const items = Array.from(document.querySelectorAll('.gl-item'));
+    const modal = document.getElementById('gl-modal');
+    const mimg = document.getElementById('gl-mimg');
+    const mtag = document.getElementById('gl-mtag');
+    const mtitle = document.getElementById('gl-mtitle');
+    const myear = document.getElementById('gl-myear');
+    const mtech = document.getElementById('gl-mtech');
+    const mtime = document.getElementById('gl-mtime');
+    const mdesc = document.getElementById('gl-mdesc');
+    const btnPrev = document.getElementById('gl-prev');
+    const btnNext = document.getElementById('gl-next');
+    let curIdx = 0;
+    let curFilter = 'all';
+
+    items.forEach((el,i) => el.style.animationDelay = (i * .048) + 's');
+
+    function countCat(cat){ return cat === 'all' ? items.length : items.filter(el => el.dataset.category === cat).length; }
+    function refreshCounts(filter){
+        ['all', 'Illustration', 'Character Design', 'SD', 'Works'].forEach(k => {
+            const el = document.getElementById('n-'+k);
+            if(el) el.textContent = countCat(k);
+        });
+        const vis = filter === 'all' ? items.length : items.filter(el => el.dataset.category === filter).length;
+        document.getElementById('gl-count').textContent = vis + ' Works';
+    }
+    refreshCounts('all');
+
+    document.querySelectorAll('.gl-fbtn').forEach(btn => {
+        btn.addEventListener('click', () => {
+            curFilter = btn.dataset.filter;
+            document.querySelectorAll('.gl-fbtn').forEach(b => { b.classList.remove('active'); b.setAttribute('aria-selected','false'); });
+            btn.classList.add('active'); btn.setAttribute('aria-selected','true');
+            let vis = 0;
+            items.forEach(el => {
+                const show = curFilter === 'all' || el.dataset.category === curFilter;
+                el.classList.toggle('hidden', !show);
+                if(show){ vis++; el.style.animation = 'none'; void el.offsetHeight; el.style.animation = ''; el.style.animationDelay = (vis * .042) + 's'; }
+            });
+            document.getElementById('gl-empty').style.display = vis === 0 ? 'block' : 'none';
+            document.getElementById('gl-count').textContent = vis + ' Works';
+        });
+    });
+
+    function visItems(){ return items.filter(el => !el.classList.contains('hidden')); }
+    function openModal(idx){
+        const vis = visItems();
+        if(!vis[idx]) return;
+        curIdx = idx;
+        const el = vis[idx];
+        const imgEl = el.querySelector('.gl-img');
+        mimg.src = imgEl ? imgEl.src : '';
+        mimg.alt = el.dataset.title || '';
+        mtag.textContent = el.dataset.tag || '';
+        mtitle.textContent = el.dataset.title || '';
+        myear.textContent = el.dataset.year || '';
+        mtech.textContent = el.dataset.tech || '';
+        mtime.textContent = el.dataset.time || '';
+        mdesc.textContent = el.dataset.desc || '';
+        btnPrev.disabled = idx === 0;
+        btnNext.disabled = idx === vis.length - 1;
+        modal.classList.add('open');
+        document.body.style.overflow = 'hidden';
+    }
+    function closeModal(){ modal.classList.remove('open'); document.body.style.overflow = ''; }
+
+    items.forEach(el => { el.addEventListener('click', () => { const idx = visItems().indexOf(el); if(idx >= 0) openModal(idx); }); });
+    document.getElementById('gl-close').addEventListener('click', closeModal);
+    modal.addEventListener('click', e => { if(e.target === modal) closeModal(); });
+    btnPrev.addEventListener('click', () => openModal(curIdx - 1));
+    btnNext.addEventListener('click', () => openModal(curIdx + 1));
+    document.addEventListener('keydown', e => {
+        if(!modal.classList.contains('open')) return;
+        if(e.key === 'Escape') closeModal();
+        if(e.key === 'ArrowLeft' && !btnPrev.disabled) openModal(curIdx - 1);
+        if(e.key === 'ArrowRight' && !btnNext.disabled) openModal(curIdx + 1);
+    });
+})();
+</script>
+
+<script src="script.js"></script>
+</body>
+</html>

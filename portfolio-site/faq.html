@@ -1,0 +1,374 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FAQ — Demiitas</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+JP:wght@400;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="style.css">
+<style>
+.doc-header-wrap { padding: 140px 0 0; text-align: center; }
+.doc-eyebrow { font-family:'Cinzel',serif; font-size:.5rem; letter-spacing:.6em; color:rgba(156,98,15,.5); text-transform:uppercase; display:block; margin-bottom:.8rem; }
+.doc-title { font-family:'Cormorant Garamond',serif; font-size:clamp(2.8rem,5vw,4.2rem); font-weight:400; color:var(--coffee-bean); letter-spacing:.1em; line-height:1; margin-bottom:.5rem; }
+.doc-title-rule { width:60px; height:1px; background:linear-gradient(to right,transparent,rgba(156,98,15,.5),transparent); margin:.8rem auto 0; }
+.doc-lead { font-family:'Cormorant Garamond',serif; font-style:italic; font-size:.9rem; letter-spacing:.12em; color:rgba(98,74,43,.45); margin-top:.7rem; display:block; }
+.doc-body { max-width: 720px; margin: 0 auto; padding: 4rem 40px 6rem; }
+.faq-category { margin-bottom: 3rem; }
+.faq-category-title { font-family: 'Cinzel', serif; font-size: .5rem; letter-spacing: .55em; color: rgba(156,98,15,.55); text-transform: uppercase; display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; padding-bottom: 1rem; border-bottom: 1px solid rgba(98,74,43,.12); }
+.faq-category-title::before { content:'◆'; font-size:.45em; color:rgba(156,98,15,.4); }
+.faq-category-title::after { content:''; flex:1; height:1px; background:rgba(98,74,43,.12); }
+.faq-item { margin-bottom: 0; border-bottom: 1px solid rgba(98,74,43,.08); }
+.faq-item:last-child { border-bottom: none; }
+.faq-q { width: 100%; background: none; border: none; padding: 1.1rem 0; display: flex; align-items: flex-start; gap: 1rem; cursor: pointer; text-align: left; transition: opacity .3s; }
+.faq-q:hover { opacity: .75; }
+.faq-q-mark { font-family: 'Cinzel', serif; font-size: .68rem; letter-spacing: .1em; color: rgba(156,98,15,.55); flex-shrink: 0; line-height: 1.6; margin-top: .05rem; }
+.faq-q-text { font-family: 'Cormorant Garamond', serif; font-size: 1.05rem; font-weight: 600; color: var(--coffee-bean); letter-spacing: .04em; line-height: 1.5; flex: 1; }
+.faq-q-arrow { font-family: 'Cinzel', serif; font-size: .5rem; color: rgba(98,74,43,.3); flex-shrink: 0; margin-top: .25rem; transition: transform .35s cubic-bezier(.16,1,.3,1), color .3s; }
+.faq-item.open .faq-q-arrow { transform: rotate(180deg); color: rgba(156,98,15,.5); }
+.faq-a { display: none; padding: 0 0 1.2rem 2rem; }
+.faq-item.open .faq-a { display: block; }
+.faq-a-mark { font-family: 'Cinzel', serif; font-size: .6rem; letter-spacing: .1em; color: rgba(98,74,43,.3); display: inline-block; margin-right: .5rem; }
+.faq-a-text { font-family: 'Noto Serif JP', serif; font-size: .86rem; line-height: 2.2; color: rgba(42,31,16,.68); letter-spacing: .04em; }
+@media (max-width: 1024px) {
+    .doc-body { padding: 2.5rem 1.2rem 4rem; }
+    .doc-header-wrap { padding-top: 100px; }
+}
+</style>
+</head>
+<body>
+<div id="page-overlay"></div>
+<div class="geo-cursor"><div class="geo-cursor-dot"></div><div class="geo-cursor-ring"></div></div>
+    <nav class="top-nav">
+    <div class="nav-container">
+      <a href="/" class="nav-logo"><img src="name logo.png" alt="DEMITAS Logo"></a>
+      
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
+        <i data-lucide="menu" class="icon-menu"></i>
+        <i data-lucide="x" class="icon-close" style="display: none;"></i>
+      </button>
+      
+      <ul id="nav-links">
+        <li><a href="index.html#TOPIC">TOPIC</a></li>
+        <li><a href="index.html#gallery">GALLERY</a></li>
+        <li><a href="contact.html">CONTACT</a></li>
+        
+        <li class="mobile-social-menu">
+          <a href="あなたのXのURL" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+              </svg>
+            </span>
+            <span class="social-name">X (Twitter)</span>
+          </a>
+          
+          <a href="あなたのInstagramのURL" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </span>
+            <span class="social-name">Instagram</span>
+          </a>
+          
+          <a href="あなたのpixivのURL" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon"><i data-lucide="palette"></i></span>
+            <span class="social-name">pixiv</span>
+          </a>
+          
+          <a href="https://www.youtube.com/channel/UCnWDEpYvIh0Mpjo70ui6bPQ" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+              </svg>
+            </span>
+            <span class="social-name">YouTube</span>
+          </a>
+
+        </li>
+        </ul>
+    </div>
+  </nav>
+<main class="doc-header-wrap">
+    <span class="doc-eyebrow">Frequently Asked Questions</span>
+    <h1 class="doc-title">FAQ</h1>
+    <div class="doc-title-rule"></div>
+    <span class="doc-lead">— よくある質問 —</span>
+</main>
+<div class="doc-body">
+
+    <div class="faq-category">
+        <h2 class="faq-category-title">依頼・お仕事について</h2>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">依頼はどこから送ればいいですか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">コンタクトフォームからお送りください。ご依頼内容（キャラクター設定・ポーズ・用途・予算・希望納期・実績公開の可否など）を事前にまとめていただけるとスムーズです。</span>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">納期はどのくらいかかりますか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">内容にもよりますが、通常のキャラクターイラストで3〜5週間を目安にしています。急ぎの場合はご相談ください（特急料金が発生する場合があります）。</span>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">修正はどのくらい対応してもらえますか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">ラフ段階での修正は2回まで、彩色後の細かな修正は1回まで対応しています。それを超える大幅な変更は別途費用をいただく場合があります。</span>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">支払い方法は何がありますか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">銀行振込、またはアズカリ(取引仲介サービス)に対応しています。納品前のお支払いをお願いしています。詳細はご依頼確定時にご案内します。</span>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">完成後のキャンセルはできますか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">ラフ確定後のキャンセルは原則お断りしています。やむを得ない事情の場合は制作進行度に応じたキャンセル料が発生します。ご了承ください。</span>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">著作権の譲渡や、商用利用は可能ですか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">原則として著作権の譲渡は行っておりません。グッズ販売や収益化動画などでの「商用利用」をご希望の場合は、別途「商用利用費」をいただいております。事前にお知らせください。</span>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">納品されるデータの形式を教えてください。</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">基本的には高解像度のPNGまたはJPG形式での納品となります。レイヤー分けされたPSDデータや、背景透過データが必要な場合は、ご依頼時にその旨をお伝えください。</span>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">成人向け（R-18）やグロテスクな表現の依頼はできますか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">大変申し訳ありませんが、R-18（性描写）のご依頼はお受けしておりません。流血や軽度な暴力表現（ダークファンタジーの範疇）であれば対応可能な場合がありますので、ご相談ください。</span>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">料金のお支払い時、源泉徴収の対応は必要ですか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">はい。法人様からのイラスト制作のご依頼につきましては、原則として源泉徴収税（10.21%）を差し引いた金額でのお振込みをお願いしております。当方から発行する請求書には、税抜金額・消費税・源泉徴収税額を明記いたします。</span>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">秘密保持契約（NDA）や業務委託契約を結ぶことは可能ですか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">はい、可能です。法人様とのお取引の際は、貴社指定のフォーマットでの締結、または当方用意の契約書での締結どちらも対応しております。情報解禁前のプロジェクトについても安心してご相談ください。</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 二次使用・転載について -->
+    <div class="faq-category">
+        <h2 class="faq-category-title">二次使用・転載について</h2>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">作品をSNSのアイコンやヘッダーに使用してもいいですか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">なりすましや無断転載などのトラブルを未然に防ぐため、既存の作品を個人のSNSアイコンやヘッダー等へ使用することは一切許可しておりません。何卒ご了承ください。（※アイコン用途として正式にご依頼いただき、制作したイラストについてはもちろんご使用いただけます）</span>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">AIの学習データに使用してもいいですか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">すべてのAI学習・生成モデルのトレーニングデータとしての使用を固く禁止しています。いかなる目的であっても例外はありません。</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- SNS・活動について -->
+    <div class="faq-category">
+        <h2 class="faq-category-title">SNS・活動について</h2>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">どのSNSで活動していますか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">X（旧Twitter）・Pixiv・Instagram・YouTubeをメインに活動しています。最新情報はXで発信することが多いです。各リンクはトップページのProfileセクションからご確認ください。</span>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">同人誌やイベントに参加していますか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">不定期で同人誌の制作・イベント参加を行っています。活動情報はXでお知らせしますので、フォローしていただけると嬉しいです。</span>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">「Estrucia（エストルシア）」とは何ですか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">私がライフワークとして展開している、ハイファンタジーのオリジナル創作世界です。特定の物語を追うのではなく、その世界で暮らす住民たちの日常や営みを気ままに切り取って描いています。ポートフォリオとは別に専用のWebサイトを構築しておりますので、トップページのリンクからぜひ覗いてみてください。</span>
+            </div>
+        </div>
+    </div>
+
+    <!-- 作風・制作について -->
+    <div class="faq-category">
+        <h2 class="faq-category-title">作風・制作について</h2>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">使用しているソフトは何ですか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">主にCLIP STUDIO PAINT、Illustrator、Photoshopを使用しています。</span>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">メイキングや制作過程は公開していますか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">YouTubeチャンネルにて制作動画・タイムラプスを公開しています。サイトのBroadcastセクションからご覧いただけます。</span>
+            </div>
+        </div>
+
+        <div class="faq-item">
+            <button class="faq-q">
+                <span class="faq-q-mark">Q.</span>
+                <span class="faq-q-text">絵の描き方や技術的な質問に答えてもらえますか？</span>
+                <span class="faq-q-arrow">▼</span>
+            </button>
+            <div class="faq-a">
+                <span class="faq-a-mark">A.</span>
+                <span class="faq-a-text">個別の質問対応は難しい場合がありますが、YouTube・SNSのコメントでのご質問には可能な範囲でお答えしています。</span>
+            </div>
+        </div>
+    </div>
+
+</div>
+<a href="index.html" class="back-link">BACK</a>
+<footer class="site-footer">
+    <div class="content-wrapper footer-wrapper">
+      <div class="footer-nav">
+        <a href="commission.html" class="footer-link">Commission</a>
+        <span class="footer-separator">|</span>
+        <a href="guidelines.html" class="footer-link">Guidelines</a>
+        <span class="footer-separator">|</span>
+        <a href="faq.html" class="footer-link">FAQ</a>
+        <span class="footer-separator">|</span>
+        <a href="privacy.html" class="footer-link">Privacy Policy</a>
+      </div>
+      <div class="footer-copy">
+        <small>&copy; 2026 Demiitas. All Rights Reserved.</small>
+      </div>
+
+      <button id="page-top" class="page-top-btn" aria-label="Page Top">
+        <i data-lucide="chevron-up"></i>
+      </button>
+      </div>
+  </footer>
+<script>
+document.querySelectorAll('.faq-q').forEach(btn => {
+    btn.addEventListener('click', () => {
+        const item = btn.closest('.faq-item');
+        const wasOpen = item.classList.contains('open');
+        document.querySelectorAll('.faq-item.open').forEach(el => el.classList.remove('open'));
+        if (!wasOpen) item.classList.add('open');
+    });
+});
+</script>
+<script src="script.js"></script>
+</body>
+</html>
