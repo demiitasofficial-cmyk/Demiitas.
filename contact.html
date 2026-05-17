@@ -390,9 +390,16 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     const btn = document.getElementById('submit-btn');
     btn.disabled = true; btn.textContent = 'Sending...';
     const formData = new FormData(this);
-    fetch('https://formspree.io/f/https://formspree.io/f/maqkwleo', { method: 'POST', body: formData })
-    .then(response => response.json())
-    .then(data => {
+    
+    fetch('https://formspree.io/f/maqkwleo', { 
+        method: 'POST', 
+        body: formData,
+        headers: {
+            'Accept': 'application/json'
+        }
+    })
+
+    .then(response => {
         if (response.ok) {
             document.getElementById('contact-form').style.display = 'none';
             const s = document.getElementById('contact-success');
