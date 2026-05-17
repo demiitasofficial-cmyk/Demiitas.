@@ -664,6 +664,8 @@ body.is-fading-out #page-overlay {
   .hero { height: auto; min-height: auto; aspect-ratio: 2 / 1; margin-top: 0; }
   .hero h1 { font-size: 1.6rem; }
 
+  .hero-logo { display: none ; }
+
   .top-nav { 
     position: sticky;
     background-color: var(--shadow-black); 
