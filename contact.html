@@ -317,22 +317,9 @@
             </div>
             <textarea class="field-textarea" id="field-message" name="message" placeholder="ご記入をお願いします" required></textarea>
             <p class="field-error">内容を入力してください。</p>
-        </div>
 
-        <div class="field-group" id="group-file">
-            <div class="field-label">
-                <span class="field-label-ja">添付ファイル</span>
-            </div>
-            
-            <div class="field-file-wrap">
-                <input type="file" id="field-file" name="attachment[]" class="field-file-input" multiple accept="image/jpeg, image/png, application/pdf">
-                
-                <label for="field-file" class="field-file-label">
-                    <i data-lucide="paperclip"></i>
-                    <span id="file-label-text">添付ファイルがある場合は こちらからお願いします</span>
-                </label>
-            </div>
-            <p style="font-family: 'Noto Serif JP', serif; font-size: 0.75rem; color: rgba(98,74,43,.5); margin-top: 0.5rem; letter-spacing: 0.04em;">※zipファイルは添付することができません</p>
+            <p style="font-family: 'Noto Serif JP', serif; font-size: 0.75rem; color: rgba(156,98,15,.8); margin-top: 0.8rem; letter-spacing: 0.04em;">※資料などの共有URLがある場合は、上の入力欄に一緒に貼り付けてください。</p>
+
         </div>
 
         <div class="contact-submit-wrap">
@@ -403,23 +390,23 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     const btn = document.getElementById('submit-btn');
     btn.disabled = true; btn.textContent = 'Sending...';
     const formData = new FormData(this);
-    fetch('send.php', { method: 'POST', body: formData })
+    fetch('https://formspree.io/f/https://formspree.io/f/mlgprodo', { method: 'POST', body: formData })
     .then(response => response.json())
     .then(data => {
-        if (data.status === 'success') {
+        if (response.ok) {
             document.getElementById('contact-form').style.display = 'none';
             const s = document.getElementById('contact-success');
             s.style.display = 'block';
             s.scrollIntoView({ behavior: 'smooth', block: 'center' });
         } else {
             alert('送信に失敗しました。時間をおいて再度お試しください。');
-            btn.disabled = false; btn.textContent = 'Send Message';
+            btn.disabled = false; btn.textContent = '送信する';
         }
     })
     .catch(error => {
         console.error('Error:', error);
         alert('通信エラーが発生しました。');
-        btn.disabled = false; btn.textContent = 'Send Message';
+        btn.disabled = false; btn.textContent = '送信する';
     });
 });
 
@@ -429,24 +416,6 @@ document.getElementById('contact-form').addEventListener('submit', function(e) {
     el.addEventListener('change', function() { this.closest('.field-group').classList.remove('has-error'); });
 });
 
-const fileInput = document.getElementById('field-file');
-const fileLabelText = document.getElementById('file-label-text');
-const fileLabel = document.querySelector('.field-file-label');
-
-if (fileInput) {
-    fileInput.addEventListener('change', function() {
-        if (this.files && this.files.length > 0) {
-
-            const fileNames = Array.from(this.files).map(f => f.name).join(', ');
-            fileLabelText.textContent = fileNames;
-            fileLabel.classList.add('has-file');
-        } else {
-
-            fileLabelText.textContent = 'クリックしてファイルを選択';
-            fileLabel.classList.remove('has-file');
-        }
-    });
-}
 </script>
 
 <script src="script.js"></script>
