@@ -250,8 +250,6 @@ function initTitleTypewriter() {
 }
 
 function initPageTransition() {
-    const overlay = document.getElementById('page-overlay');
-    
     window.addEventListener('load', () => {
         setTimeout(() => {
             document.body.classList.add('is-fade-in');
@@ -292,38 +290,6 @@ function initSmoothScroll() {
         pageTopBtn.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
         });
-    }
-}
-
-function initHeroSlider() {
-    const heroSection = document.getElementById('hero-slider');
-    if (!heroSection) return;
-
-    const heroImages = heroSection.querySelectorAll('.hero-image');
-    let currentHeroIndex = 0;
-
-    if (heroImages.length > 1) {
-        setInterval(() => {
-            heroSection.classList.remove('is-leaving');
-            heroSection.classList.add('is-entering');
-            
-            setTimeout(() => {
-                heroImages[currentHeroIndex].classList.remove('is-active');
-                currentHeroIndex = (currentHeroIndex + 1) % heroImages.length;
-                heroImages[currentHeroIndex].classList.add('is-active');
-                
-                heroSection.classList.remove('is-entering');
-                heroSection.classList.add('is-leaving');
-                
-                setTimeout(() => {
-                    heroSection.classList.add('is-resetting');
-                    heroSection.classList.remove('is-leaving');
-                    setTimeout(() => {
-                        heroSection.classList.remove('is-resetting');
-                    }, 100); 
-                }, 2200); 
-            }, 2200); 
-        }, 7000);
     }
 }
 
@@ -419,7 +385,6 @@ document.addEventListener('DOMContentLoaded', () => {
     initScrollReveal();
     initPageTransition();
     initSmoothScroll();
-    initHeroSlider();
     initLightbox();
     initLazyLoad();
     initResizeHandler();
@@ -440,12 +405,12 @@ window.onOpeningComplete = function() {
 window.DemiitasPortfolio = {
     throttle, debounce, rafThrottle,
     initCustomCursor, initTitleTypewriter, initScrollReveal,
-    initPageTransition, initSmoothScroll, initHeroSlider, initLightbox,
+    initPageTransition, initSmoothScroll, initLightbox,
     initLazyLoad, initResizeHandler
 };
 
 function initCoffeeParallax() {
-    if (window.innerWidth <= 768) return;
+    if (window.innerWidth <= 1024) return;
 
     const coffeeItems = document.querySelectorAll('.parallax-coffee-item');
     if (coffeeItems.length === 0) return;
