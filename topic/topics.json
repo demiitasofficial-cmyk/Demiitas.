@@ -9,24 +9,6 @@
       "title": "活動開始のお知らせ",
       "excerpt": "イラストレーター Demiitas. として活動を開始しました。各プラットフォームでの展開についてご案内します。",
       "thumb": "01.御挨拶.webp"
-    },
-    {
-      "slug": "topic-02",
-      "date": "2026-05-01",
-      "tag": "update",
-      "tagLabel": "UPDATE",
-      "title": "このサイトについて",
-      "excerpt": "Demiitas. Official Site を公開しました。サイトの目的と構成についてお知らせします。",
-      "thumb": "../芸術品.jpg"
-    },
-    {
-      "slug": "topic-04",
-      "date": "2026-03-08",
-      "tag": "work",
-      "tagLabel": "Work",
-      "title": "Estrucia Chronicle",
-      "excerpt": "創作世界「エストルシア」の設定資料集 Web サイトを制作中です。世界観アーカイブの進捗をお知らせします。",
-      "thumb": "../illustration/新表紙.png"
     }
   ]
 }
