@@ -392,7 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initGallerySlider(); 
 
     initHamburger();
-    initTopicArchive();
+    initTopicChronicles();
 
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
         logPerformance();
@@ -410,123 +410,133 @@ window.DemiitasPortfolio = {
     initLazyLoad, initResizeHandler
 };
 
-async function initTopicArchive() {
-    const listEl = document.getElementById('tp-archive-list');
-    const filterBar = document.getElementById('tp-filter-bar');
-    const emptyEl = document.getElementById('tp-empty');
-    const countEl = document.getElementById('tp-count');
-    if (!listEl) return;
+const TOPIC_TAB_LABELS = {
+    all: 'ALL',
+    info: 'INFO',
+    update: 'UPDATE',
+    work: 'WORK',
+    art: 'ART',
+    event: 'EVENT'
+};
 
-    const jsonPath = listEl.dataset.topicsSrc || 'topics.json';
-
-    let topics = [];
-    try {
-        const res = await fetch(jsonPath);
-        if (!res.ok) throw new Error('fetch failed');
-        const data = await res.json();
-        topics = (data.topics || []).slice().sort((a, b) => b.date.localeCompare(a.date));
-    } catch (err) {
-        console.error('TOPIC list load error:', err);
-        if (emptyEl) {
-            emptyEl.classList.add('is-visible');
-            emptyEl.querySelector('.tp-empty-text').textContent = 'お知らせを読み込めませんでした。';
-        }
-        return;
-    }
+async function initTopicChronicles() {
+    const widgets = document.querySelectorAll('[data-topic-widget]');
+    if (!widgets.length) return;
 
     const formatDate = (iso) => {
         const [y, m, d] = iso.split('-');
         return `${y}.${m}.${d}`;
     };
 
-    const tagLabels = { all: 'すべて' };
-    topics.forEach((t) => {
-        if (t.tag && !tagLabels[t.tag]) tagLabels[t.tag] = t.tagLabel || t.tag;
-    });
+    widgets.forEach(async (widget) => {
+        const tabsEl = widget.querySelector('[data-topic-tabs]');
+        const listEl = widget.querySelector('[data-topic-list]');
+        const emptyEl = widget.querySelector('[data-topic-empty]');
+        const countEl = widget.closest('.tp-archive-wrap')?.querySelector('#tp-count')
+            || document.getElementById('tp-count');
 
-    let activeFilter = 'all';
+        if (!tabsEl || !listEl) return;
 
-    const renderFilters = () => {
-        if (!filterBar) return;
-        filterBar.innerHTML = '';
-        ['all', ...Object.keys(tagLabels).filter((k) => k !== 'all')].forEach((key) => {
-            const btn = document.createElement('button');
-            btn.type = 'button';
-            btn.className = `tp-fbtn${key === activeFilter ? ' active' : ''}`;
-            btn.dataset.filter = key;
-            btn.textContent = tagLabels[key];
-            btn.addEventListener('click', () => {
-                activeFilter = key;
-                filterBar.querySelectorAll('.tp-fbtn').forEach((b) => b.classList.toggle('active', b.dataset.filter === key));
-                renderList();
-            });
-            filterBar.appendChild(btn);
-        });
-    };
+        const jsonPath = widget.dataset.topicsSrc || 'topic/topics.json';
+        const linkBase = widget.dataset.linkBase || 'topic/';
+        let topics = [];
 
-    const renderList = () => {
-        const filtered = activeFilter === 'all'
-            ? topics
-            : topics.filter((t) => t.tag === activeFilter);
-
-        if (countEl) {
-            countEl.textContent = `${filtered.length} ${filtered.length === 1 ? 'Topic' : 'Topics'}`;
-        }
-
-        listEl.innerHTML = '';
-
-        if (filtered.length === 0) {
+        try {
+            const res = await fetch(jsonPath);
+            if (!res.ok) throw new Error('fetch failed');
+            const data = await res.json();
+            topics = (data.topics || []).slice().sort((a, b) => b.date.localeCompare(a.date));
+        } catch (err) {
+            console.error('TOPIC list load error:', err);
             emptyEl?.classList.add('is-visible');
+            if (emptyEl) emptyEl.textContent = 'お知らせを読み込めませんでした。';
             return;
         }
-        emptyEl?.classList.remove('is-visible');
 
-        filtered.forEach((topic, i) => {
-            const card = document.createElement('a');
-            card.href = `${topic.slug}.html`;
-            card.className = 'tp-card fade-in';
-            card.style.animationDelay = `${i * 0.06}s`;
+        const tagOrder = ['info', 'update', 'work', 'art', 'event'];
+        const tagSet = new Set(topics.map((t) => t.tag).filter(Boolean));
+        const tagKeys = ['all', ...tagOrder.filter((k) => tagSet.has(k)), ...[...tagSet].filter((k) => !tagOrder.includes(k))];
 
-            const thumb = document.createElement('div');
-            thumb.className = 'tp-card-thumb';
-            if (topic.thumb) thumb.style.backgroundImage = `url('${topic.thumb}')`;
+        let activeFilter = 'all';
+        let itemNodes = [];
 
-            const body = document.createElement('div');
-            body.className = 'tp-card-body';
-            body.innerHTML = `
-                <div class="tp-card-meta">
-                    <time datetime="${topic.date}">${formatDate(topic.date)}</time>
-                    <span class="tag tag-${topic.tag}">${topic.tagLabel || topic.tag}</span>
-                </div>
-                <h2 class="tp-card-title"></h2>
-                <p class="tp-card-excerpt"></p>
-                <span class="tp-card-more">Read more →</span>
-            `;
-            body.querySelector('.tp-card-title').textContent = topic.title;
-            body.querySelector('.tp-card-excerpt').textContent = topic.excerpt || '';
+        const buildItems = () => {
+            listEl.innerHTML = '';
+            itemNodes = topics.map((topic) => {
+                const item = document.createElement('a');
+                item.href = `${linkBase}${topic.slug}.html`;
+                item.className = 'topic-item';
+                item.dataset.category = topic.tag;
 
-            card.append(thumb, body);
-            listEl.appendChild(card);
+                const text = topic.excerpt || topic.title;
+                item.innerHTML = `
+                    <time class="topic-date" datetime="${topic.date}">${formatDate(topic.date)}</time>
+                    <span class="topic-tag">${(topic.tagLabel || topic.tag || '').toUpperCase()}</span>
+                    <span class="topic-content"></span>
+                `;
+                item.querySelector('.topic-content').textContent = text;
+                listEl.appendChild(item);
+                return item;
+            });
+        };
+
+        const animateVisible = () => {
+            let delay = 0;
+            itemNodes.forEach((item) => {
+                item.classList.remove('is-animating', 'is-hidden');
+                item.style.animationDelay = '0s';
+                if (activeFilter === 'all' || item.dataset.category === activeFilter) {
+                    item.classList.remove('is-hidden');
+                    item.style.animationDelay = `${delay * 0.1}s`;
+                    void item.offsetWidth;
+                    item.classList.add('is-animating');
+                    delay++;
+                } else {
+                    item.classList.add('is-hidden');
+                }
+            });
+        };
+
+        const updateCount = () => {
+            if (!countEl) return;
+            const n = activeFilter === 'all'
+                ? topics.length
+                : topics.filter((t) => t.tag === activeFilter).length;
+            countEl.textContent = `${n} ${n === 1 ? 'Topic' : 'Topics'}`;
+        };
+
+        const applyFilter = (filter) => {
+            activeFilter = filter;
+            tabsEl.querySelectorAll('.topic-tab-btn').forEach((btn) => {
+                btn.classList.toggle('active', btn.dataset.target === filter);
+            });
+            if (itemNodes.length === 0) {
+                emptyEl?.classList.add('is-visible');
+                updateCount();
+                return;
+            }
+            const visible = activeFilter === 'all'
+                ? itemNodes.length
+                : itemNodes.filter((el) => el.dataset.category === activeFilter).length;
+            emptyEl?.classList.toggle('is-visible', visible === 0);
+            animateVisible();
+            updateCount();
+        };
+
+        tabsEl.innerHTML = '';
+        tagKeys.forEach((key) => {
+            const btn = document.createElement('button');
+            btn.type = 'button';
+            btn.className = `topic-tab-btn${key === 'all' ? ' active' : ''}`;
+            btn.dataset.target = key;
+            btn.textContent = TOPIC_TAB_LABELS[key] || key.toUpperCase();
+            btn.addEventListener('click', () => applyFilter(key));
+            tabsEl.appendChild(btn);
         });
 
-        if (typeof initScrollReveal === 'function') {
-            listEl.querySelectorAll('.fade-in').forEach((el) => {
-                el.classList.remove('is-visible');
-                const observer = new IntersectionObserver((entries, obs) => {
-                    entries.forEach((entry) => {
-                        if (entry.isIntersecting) {
-                            entry.target.classList.add('is-visible');
-                            obs.unobserve(entry.target);
-                        }
-                    });
-                }, { root: null, rootMargin: '0px 0px -8% 0px', threshold: 0.05 });
-                observer.observe(el);
-            });
-        }
-    };
-
-    renderFilters();
-    renderList();
+        buildItems();
+        applyFilter('all');
+    });
 }
 
 function initCoffeeParallax() {

@@ -12,8 +12,8 @@
     {
       "slug": "topic-02",
       "date": "2026-05-01",
-      "tag": "info",
-      "tagLabel": "Info",
+      "tag": "update",
+      "tagLabel": "UPDATE",
       "title": "このサイトについて",
       "excerpt": "Demiitas. Official Site を公開しました。サイトの目的と構成についてお知らせします。",
       "thumb": "../芸術品.jpg"

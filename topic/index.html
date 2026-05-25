@@ -78,12 +78,14 @@
   <span class="tp-count-line" id="tp-count">0 Topics</span>
 </header>
 
-<div class="tp-filter-bar" id="tp-filter-bar" role="tablist" aria-label="お知らせのカテゴリ"></div>
-
 <div class="tp-archive-wrap">
-  <div id="tp-archive-list" class="tp-archive-list" data-topics-src="topics.json"></div>
-  <div id="tp-empty" class="tp-empty" aria-hidden="true">
-    <p class="tp-empty-text">該当するお知らせはありません。</p>
+  <div class="topic-chronicles topic-chronicles--page"
+       data-topic-widget
+       data-topics-src="topics.json"
+       data-link-base="">
+    <div class="topic-tabs" data-topic-tabs role="tablist" aria-label="お知らせのカテゴリ"></div>
+    <div class="topic-list" data-topic-list></div>
+    <p class="topic-empty" data-topic-empty>該当するお知らせはありません。</p>
   </div>
 </div>
 

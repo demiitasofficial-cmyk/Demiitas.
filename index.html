@@ -179,18 +179,17 @@
           </div>
         </a>
 
-        <ul class="TOPIC-list">
-
-          <li>
-            <time datetime="2026-05-17">2026.05.17</time>
-            <span class="tag tag-info">Info</span>
-            <a href="topic/topic-01.html">活動開始のお知らせ</a>
-          </li>
-          
-        </ul>
+        <div class="topic-chronicles topic-chronicles--home"
+             data-topic-widget
+             data-topics-src="topic/topics.json"
+             data-link-base="topic/">
+          <div class="topic-tabs" data-topic-tabs></div>
+          <div class="topic-list" data-topic-list></div>
+          <p class="topic-empty" data-topic-empty>該当するお知らせはありません。</p>
+        </div>
 
         <div class="TOPIC-view-all">
-          <a href="topic/index.html" class="btn-outline">VIEW ALL TOPICS <i data-lucide="arrow-right"></i></a>
+          <a href="topic/index.html" class="archive-link-style">VIEW ALL TOPICS →</a>
         </div>
       </div>
     </section>
