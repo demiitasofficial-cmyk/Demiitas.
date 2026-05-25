@@ -411,13 +411,31 @@ window.DemiitasPortfolio = {
 };
 
 const TOPIC_TAB_LABELS = {
-    all: 'ALL',
-    info: 'INFO',
-    update: 'UPDATE',
-    work: 'WORK',
-    art: 'ART',
-    event: 'EVENT'
+    all: '最新',
+    info: 'お知らせ',
+    update: '更新',
+    work: '制作',
+    art: '作品',
+    event: 'イベント'
 };
+
+function resolveTopicThumb(thumb, linkBase) {
+    if (!thumb || thumb.startsWith('http')) return thumb;
+    if (linkBase === 'topic/') {
+        if (thumb.startsWith('../')) return thumb.slice(3);
+        return `topic/${thumb}`;
+    }
+    return thumb;
+}
+
+function updateTopicBanner(featured, linkBase) {
+    const banner = document.querySelector('[data-topic-banner]');
+    if (!banner || !featured) return;
+    banner.href = `${linkBase}${featured.slug}.html`;
+    const img = banner.querySelector('.banner-img');
+    const thumb = resolveTopicThumb(featured.thumb, linkBase);
+    if (img && thumb) img.style.backgroundImage = `url('${thumb}')`;
+}
 
 async function initTopicChronicles() {
     const widgets = document.querySelectorAll('[data-topic-widget]');
@@ -429,16 +447,17 @@ async function initTopicChronicles() {
     };
 
     widgets.forEach(async (widget) => {
-        const tabsEl = widget.querySelector('[data-topic-tabs]');
+        const feedEl = widget.closest('.topic-split-feed');
+        const tabsEl = feedEl?.querySelector('[data-topic-tabs]') || widget.querySelector('[data-topic-tabs]');
         const listEl = widget.querySelector('[data-topic-list]');
         const emptyEl = widget.querySelector('[data-topic-empty]');
-        const countEl = widget.closest('.tp-archive-wrap')?.querySelector('#tp-count')
-            || document.getElementById('tp-count');
+        const countEl = feedEl?.querySelector('#tp-count') || document.getElementById('tp-count');
 
         if (!tabsEl || !listEl) return;
 
         const jsonPath = widget.dataset.topicsSrc || 'topic/topics.json';
         const linkBase = widget.dataset.linkBase || 'topic/';
+        const limit = parseInt(widget.dataset.limit, 10) || 0;
         let topics = [];
 
         try {
@@ -453,6 +472,9 @@ async function initTopicChronicles() {
             return;
         }
 
+        const featured = topics.find((t) => t.featured) || topics[0];
+        updateTopicBanner(featured, linkBase);
+
         const tagOrder = ['info', 'update', 'work', 'art', 'event'];
         const tagSet = new Set(topics.map((t) => t.tag).filter(Boolean));
         const tagKeys = ['all', ...tagOrder.filter((k) => tagSet.has(k)), ...[...tagSet].filter((k) => !tagOrder.includes(k))];
@@ -462,19 +484,25 @@ async function initTopicChronicles() {
 
         const buildItems = () => {
             listEl.innerHTML = '';
-            itemNodes = topics.map((topic) => {
+            const displayTopics = limit > 0 ? topics.slice(0, limit) : topics;
+            itemNodes = displayTopics.map((topic) => {
                 const item = document.createElement('a');
                 item.href = `${linkBase}${topic.slug}.html`;
                 item.className = 'topic-item';
                 item.dataset.category = topic.tag;
 
-                const text = topic.excerpt || topic.title;
+                const tagText = topic.slug === topics[0]?.slug
+                    ? '最新'
+                    : (topic.tagLabel || TOPIC_TAB_LABELS[topic.tag] || topic.tag);
+
                 item.innerHTML = `
-                    <time class="topic-date" datetime="${topic.date}">${formatDate(topic.date)}</time>
-                    <span class="topic-tag">${(topic.tagLabel || topic.tag || '').toUpperCase()}</span>
+                    <span class="topic-tag"></span>
                     <span class="topic-content"></span>
+                    <time class="topic-date" datetime="${topic.date}"></time>
                 `;
-                item.querySelector('.topic-content').textContent = text;
+                item.querySelector('.topic-tag').textContent = tagText;
+                item.querySelector('.topic-content').textContent = topic.title;
+                item.querySelector('.topic-date').textContent = formatDate(topic.date);
                 listEl.appendChild(item);
                 return item;
             });

@@ -70,22 +70,31 @@
   </div>
 </nav>
 
-<header class="tp-header">
-  <span class="tp-eyebrow">News · Announcements</span>
-  <h1 class="tp-title">TOPIC</h1>
-  <div class="tp-rule"></div>
-  <span class="tp-lead">— お知らせ一覧 —</span>
-  <span class="tp-count-line" id="tp-count">0 Topics</span>
-</header>
-
 <div class="tp-archive-wrap">
-  <div class="topic-chronicles topic-chronicles--page"
-       data-topic-widget
-       data-topics-src="topics.json"
-       data-link-base="">
-    <div class="topic-tabs" data-topic-tabs role="tablist" aria-label="お知らせのカテゴリ"></div>
-    <div class="topic-list" data-topic-list></div>
-    <p class="topic-empty" data-topic-empty>該当するお知らせはありません。</p>
+  <div class="TOPIC-container topic-archive-container">
+    <div class="topic-split topic-split--archive">
+      <div class="topic-split-banner">
+        <a href="topic-01.html" class="TOPIC-banner-link" data-topic-banner>
+          <div class="banner-img" style="background-image: url('01.御挨拶.webp');"></div>
+        </a>
+      </div>
+
+      <div class="topic-split-feed">
+        <div class="topic-feed-head">
+          <h1 class="topic-feed-title">News</h1>
+          <div class="topic-tabs" data-topic-tabs role="tablist" aria-label="お知らせのカテゴリ"></div>
+        </div>
+        <p class="tp-count-line" id="tp-count">0 Topics</p>
+
+        <div class="topic-chronicles topic-chronicles--page"
+             data-topic-widget
+             data-topics-src="topics.json"
+             data-link-base="">
+          <div class="topic-list" data-topic-list></div>
+          <p class="topic-empty" data-topic-empty>該当するお知らせはありません。</p>
+        </div>
+      </div>
+    </div>
   </div>
 </div>
 

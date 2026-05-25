@@ -172,24 +172,32 @@
       </div>
       
       <div class="TOPIC-container">
-        <a href="topic/topic-01.html" class="TOPIC-banner-link">
-          <div class="banner-img" style="background-image: url('topic/01.御挨拶.webp');">
-            <div class="banner-overlay">
+        <div class="topic-split">
+          <div class="topic-split-banner">
+            <a href="topic/topic-01.html" class="TOPIC-banner-link" data-topic-banner>
+              <div class="banner-img" style="background-image: url('topic/01.御挨拶.webp');"></div>
+            </a>
+          </div>
+
+          <div class="topic-split-feed">
+            <div class="topic-feed-head">
+              <h3 class="topic-feed-title">News</h3>
+              <div class="topic-tabs" data-topic-tabs></div>
+            </div>
+
+            <div class="topic-chronicles topic-chronicles--home"
+                 data-topic-widget
+                 data-topics-src="topic/topics.json"
+                 data-link-base="topic/"
+                 data-limit="5">
+              <div class="topic-list" data-topic-list></div>
+              <p class="topic-empty" data-topic-empty>該当するお知らせはありません。</p>
+            </div>
+
+            <div class="topic-more-wrap">
+              <a href="topic/index.html" class="topic-more-btn">More</a>
             </div>
           </div>
-        </a>
-
-        <div class="topic-chronicles topic-chronicles--home"
-             data-topic-widget
-             data-topics-src="topic/topics.json"
-             data-link-base="topic/">
-          <div class="topic-tabs" data-topic-tabs></div>
-          <div class="topic-list" data-topic-list></div>
-          <p class="topic-empty" data-topic-empty>該当するお知らせはありません。</p>
-        </div>
-
-        <div class="TOPIC-view-all">
-          <a href="topic/index.html" class="archive-link-style">VIEW ALL TOPICS →</a>
         </div>
       </div>
     </section>
