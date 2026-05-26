@@ -711,6 +711,196 @@ body.is-fading-out #page-overlay {
   padding: 8rem 2rem 6rem;
 }
 
+/* CHARACTER — キービジュアル / 紹介 / YouTube */
+.char-page-body {
+  overflow-x: clip;
+}
+.char-page {
+  padding: 0;
+  margin: 0;
+}
+.char-kv {
+  width: 100%;
+  max-width: 100%;
+  margin: 0;
+  padding-top: 64px;
+  background-color: #1a1610;
+  overflow: hidden;
+  line-height: 0;
+  box-sizing: border-box;
+}
+.char-kv-img {
+  width: 100%;
+  height: auto;
+  max-height: min(88vh, 960px);
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  margin: 0 auto;
+}
+.char-body-wrap {
+  max-width: 1200px;
+  margin: 0 auto;
+  padding: 3rem 2.5rem 5rem;
+  box-sizing: border-box;
+}
+.char-intro-head {
+  text-align: center;
+  margin-bottom: 2.5rem;
+  padding-bottom: 2rem;
+  border-bottom: 1px solid var(--border-color);
+}
+.char-eyebrow {
+  font-family: var(--font-accent);
+  font-size: 0.72rem;
+  letter-spacing: 0.35em;
+  text-transform: uppercase;
+  color: var(--camel-accent);
+  display: block;
+  margin-bottom: 0.75rem;
+}
+.char-name-ja {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(2rem, 4vw, 3rem);
+  font-weight: 400;
+  letter-spacing: 0.12em;
+  margin: 0 0 0.35rem;
+  color: var(--text-main);
+  line-height: 1.2;
+}
+.char-name-en {
+  font-family: var(--font-accent);
+  font-size: 0.85rem;
+  letter-spacing: 0.25em;
+  text-transform: uppercase;
+  color: var(--text-light);
+  margin: 0;
+}
+.char-profile {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) minmax(0, 0.95fr);
+  gap: 3rem 4rem;
+  align-items: center;
+  margin-bottom: 4rem;
+}
+.char-bio p {
+  font-family: var(--font-jp);
+  font-size: 0.95rem;
+  line-height: 2.1;
+  color: var(--text-light);
+  margin: 0 0 1.25rem;
+  letter-spacing: 0.04em;
+}
+.char-bio p:last-child {
+  margin-bottom: 0;
+}
+.char-quote {
+  margin: 2rem 0 0;
+  padding-left: 1.25rem;
+  border-left: 2px solid var(--camel-accent);
+  font-family: 'Cormorant Garamond', serif;
+  font-style: italic;
+  font-size: 1.05rem;
+  color: var(--coffee-bean);
+  letter-spacing: 0.06em;
+}
+.char-standing {
+  margin: 0;
+  display: flex;
+  align-items: flex-end;
+  justify-content: center;
+  min-height: 280px;
+}
+.char-standing-img {
+  width: 100%;
+  max-width: 420px;
+  height: auto;
+  max-height: min(72vh, 640px);
+  object-fit: contain;
+  object-position: bottom center;
+  display: block;
+}
+.char-youtube {
+  padding-top: 2.5rem;
+  border-top: 1px solid var(--border-color);
+}
+.char-youtube-header {
+  text-align: center;
+  margin-bottom: 1.75rem;
+}
+.char-youtube-title {
+  font-family: 'Cormorant Garamond', serif;
+  font-size: clamp(1.75rem, 3vw, 2.25rem);
+  font-weight: 400;
+  letter-spacing: 0.15em;
+  margin: 0 0 0.5rem;
+  color: var(--text-main);
+}
+.char-youtube-lead {
+  font-family: var(--font-jp);
+  font-size: 0.88rem;
+  color: var(--text-light);
+  margin: 0;
+  letter-spacing: 0.06em;
+}
+.char-youtube-player {
+  width: 100%;
+  max-width: 900px;
+  margin: 0 auto;
+}
+.char-youtube-player iframe {
+  width: 100%;
+  aspect-ratio: 16 / 9;
+  border: none;
+  display: block;
+  background: #0a0907;
+}
+.char-youtube-placeholder {
+  aspect-ratio: 16 / 9;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1.25rem;
+  background: var(--bg-sub);
+  border: 1px solid var(--border-color);
+  text-align: center;
+  padding: 2rem;
+  box-sizing: border-box;
+}
+.char-youtube-placeholder p {
+  font-family: var(--font-jp);
+  font-size: 0.9rem;
+  color: var(--text-light);
+  margin: 0;
+}
+.char-youtube-channel-btn {
+  display: inline-flex;
+  align-items: center;
+  padding: 0.7rem 2rem;
+  border: 1px solid var(--camel-accent);
+  border-radius: 999px;
+  font-family: var(--font-accent);
+  font-size: 0.75rem;
+  letter-spacing: 0.2em;
+  text-transform: uppercase;
+  color: var(--text-main);
+  text-decoration: none;
+  transition: background 0.35s ease, color 0.35s ease;
+}
+.char-youtube-channel-btn:hover {
+  background: var(--text-main);
+  color: var(--bg-main);
+}
+.char-youtube-video-title {
+  text-align: center;
+  font-family: var(--font-jp);
+  font-size: 0.85rem;
+  color: var(--text-light);
+  margin: 1rem 0 0;
+  letter-spacing: 0.04em;
+}
+
 #gallery { 
   position: relative; 
   width: 100vw; 
@@ -1168,6 +1358,28 @@ html {
 }
 
 @media (max-width: 768px) {
+  .char-body-wrap {
+    padding: 2rem 1.2rem 4rem;
+  }
+  .char-profile {
+    grid-template-columns: 1fr;
+    gap: 2rem;
+  }
+  .char-profile-text {
+    order: 2;
+  }
+  .char-standing {
+    order: 1;
+    min-height: 200px;
+  }
+  .char-standing-img {
+    max-width: 280px;
+    max-height: 50vh;
+  }
+  .char-kv-img {
+    max-height: 55vh;
+  }
+
   .topic-split {
     grid-template-columns: 1fr;
     gap: 1.5rem;

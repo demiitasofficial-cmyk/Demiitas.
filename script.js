@@ -392,6 +392,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initGallerySlider(); 
 
     initHamburger();
+    initCharacterPage();
     initTopicChronicles();
 
     if (window.location.hostname === 'localhost' || window.location.hostname === '127.0.0.1') {
@@ -437,6 +438,94 @@ function updateTopicBanner(featured, linkBase) {
     if (img && thumb) {
         img.src = thumb;
         img.alt = featured.title || 'Topic banner';
+    }
+}
+
+async function initCharacterPage() {
+    const root = document.querySelector('[data-character-page]');
+    if (!root) return;
+
+    const src = root.dataset.characterSrc || 'characters/character.json';
+    const jsonPath = new URL(src, window.location.href).href;
+
+    const setText = (sel, text) => {
+        const el = root.querySelector(sel);
+        if (el && text != null) el.textContent = text;
+    };
+
+    let data;
+    try {
+        const res = await fetch(jsonPath);
+        if (!res.ok) throw new Error('fetch failed');
+        data = await res.json();
+    } catch (err) {
+        console.error('Character data load error:', err);
+        return;
+    }
+
+    const kv = root.querySelector('[data-char-kv]');
+    const standing = root.querySelector('[data-char-standing]');
+    const bio = root.querySelector('[data-char-bio]');
+    const quote = root.querySelector('[data-char-quote]');
+    const ytPlayer = root.querySelector('[data-char-yt-player]');
+    const ytTitle = root.querySelector('[data-char-yt-video-title]');
+
+    if (kv && data.kvImage) {
+        kv.src = data.kvImage;
+        kv.alt = `${data.nameJa || 'Character'} — Key Visual`;
+    }
+    if (standing && data.standingImage) {
+        standing.src = data.standingImage;
+        standing.alt = data.nameJa || 'Character standing';
+    }
+
+    setText('[data-char-role]', data.role);
+    setText('[data-char-name-ja]', data.nameJa);
+    setText('[data-char-name-en]', data.nameEn);
+    setText('[data-char-yt-desc]', data.youtube?.videoDescription);
+    document.title = `${data.nameJa || 'Character'} — Demiitas.`;
+
+    if (bio && Array.isArray(data.paragraphs)) {
+        bio.innerHTML = '';
+        data.paragraphs.forEach((paragraph) => {
+            const p = document.createElement('p');
+            p.textContent = paragraph;
+            bio.appendChild(p);
+        });
+    }
+
+    if (quote) {
+        if (data.quote) {
+            quote.textContent = data.quote;
+            quote.hidden = false;
+        } else {
+            quote.hidden = true;
+        }
+    }
+
+    const yt = data.youtube || {};
+    const channelUrl = yt.channelUrl || 'https://www.youtube.com/channel/UCnWDEpYvIh0Mpjo70ui6bPQ';
+
+    if (ytPlayer) {
+        if (yt.videoId) {
+            ytPlayer.innerHTML = `
+                <iframe
+                  src="https://www.youtube-nocookie.com/embed/${yt.videoId}"
+                  title="${yt.videoTitle || 'YouTube video'}"
+                  allow="accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share"
+                  allowfullscreen
+                  loading="lazy"></iframe>`;
+            if (ytTitle && yt.videoTitle) {
+                ytTitle.textContent = yt.videoTitle;
+            }
+        } else {
+            const placeholder = ytPlayer.querySelector('.char-youtube-placeholder');
+            const link = ytPlayer.querySelector('.char-youtube-channel-btn');
+            if (link) link.href = channelUrl;
+            if (placeholder && !placeholder.querySelector('a')) {
+                /* keep default */
+            }
+        }
     }
 }
 
