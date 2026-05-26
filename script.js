@@ -432,9 +432,12 @@ function updateTopicBanner(featured, linkBase) {
     const banner = document.querySelector('[data-topic-banner]');
     if (!banner || !featured) return;
     banner.href = `${linkBase}${featured.slug}.html`;
-    const img = banner.querySelector('.banner-img');
     const thumb = resolveTopicThumb(featured.thumb, linkBase);
-    if (img && thumb) img.style.backgroundImage = `url('${thumb}')`;
+    const img = banner.querySelector('img.banner-img');
+    if (img && thumb) {
+        img.src = thumb;
+        img.alt = featured.title || 'Topic banner';
+    }
 }
 
 async function initTopicChronicles() {
@@ -446,17 +449,18 @@ async function initTopicChronicles() {
         return `${y}.${m}.${d}`;
     };
 
-    widgets.forEach(async (widget) => {
+    for (const widget of widgets) {
         const feedEl = widget.closest('.topic-split-feed');
         const tabsEl = feedEl?.querySelector('[data-topic-tabs]') || widget.querySelector('[data-topic-tabs]');
         const listEl = widget.querySelector('[data-topic-list]');
         const emptyEl = widget.querySelector('[data-topic-empty]');
         const countEl = feedEl?.querySelector('#tp-count') || document.getElementById('tp-count');
 
-        if (!tabsEl || !listEl) return;
+        if (!tabsEl || !listEl) continue;
 
-        const jsonPath = widget.dataset.topicsSrc || 'topic/topics.json';
-        const linkBase = widget.dataset.linkBase || 'topic/';
+        const src = widget.dataset.topicsSrc || 'topic/topics.json';
+        const jsonPath = new URL(src, window.location.href).href;
+        const linkBase = widget.dataset.linkBase ?? 'topic/';
         const limit = parseInt(widget.dataset.limit, 10) || 0;
         let topics = [];
 
@@ -469,7 +473,12 @@ async function initTopicChronicles() {
             console.error('TOPIC list load error:', err);
             emptyEl?.classList.add('is-visible');
             if (emptyEl) emptyEl.textContent = 'お知らせを読み込めませんでした。';
-            return;
+            continue;
+        }
+
+        if (topics.length === 0) {
+            emptyEl?.classList.add('is-visible');
+            continue;
         }
 
         const featured = topics.find((t) => t.featured) || topics[0];
@@ -564,7 +573,7 @@ async function initTopicChronicles() {
 
         buildItems();
         applyFilter('all');
-    });
+    }
 }
 
 function initCoffeeParallax() {
