@@ -382,7 +382,7 @@ body.is-fading-out #page-overlay {
   max-width: min(1300px, 100%); 
   margin: 0 auto; 
   padding: 0 2rem 4rem;
-  overflow-x: clip;
+  overflow-x: visible;
   box-sizing: border-box;
 }
 .section-block { margin-bottom: 8rem; }
@@ -711,7 +711,6 @@ body.is-fading-out #page-overlay {
   padding: 8rem 2rem 6rem;
 }
 
-/* CHARACTER — キービジュアル / 紹介 / YouTube */
 .char-page-body {
   overflow-x: clip;
 }
@@ -736,6 +735,14 @@ body.is-fading-out #page-overlay {
   display: block;
   margin: 0 auto;
 }
+
+.char-kv {
+  width: 100vw;
+  position: relative;
+  left: 50%;
+  transform: translateX(-50%);
+}
+
 .char-body-wrap {
   max-width: 1200px;
   margin: 0 auto;
@@ -1452,6 +1459,13 @@ html {
   .TOPIC-container {
     box-sizing: border-box;
     width: 100%;
+  }
+
+  .char-kv {
+    position: static;
+    width: 100%;
+    left: auto;
+    transform: none;
   }
 
 }
