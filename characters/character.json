@@ -1,19 +1,18 @@
 {
-  "nameJa": "（キャラクター名を入力）",
-  "nameEn": "Character Name",
-  "role": "ナレーター · 設定解説",
-  "kvImage": "topic/01.御挨拶.webp",
-  "standingImage": "characters/standing.webp",
+  "nameJa": "ラシュ・バスカトーレ",
+  "nameEn": "Rache Bascatore",
+  "role": "語り手 紹介",
+  "kvImage": "illustration/kv.webp",
+  "standingImage": "Rache.webp",
   "paragraphs": [
-    "イラスト制作の解説や、一次創作の世界観・設定を、ゆっくりとした口調で語るオリジナルキャラクターです。",
-    "動画では制作過程の紹介に加え、作品に込めた意図や設定の裏側を雑談形式でお届けします。",
-    "キャラクター名・立ち絵・キービジュアルは、この JSON と画像ファイルを差し替えて更新してください。"
+    "現在、準備中です。",
+    "",
+    ""
   ],
-  "quote": "「……まずは、この一枚から話そうか。」",
+  "quote": "「coming soon」",
   "youtube": {
     "videoId": "",
     "videoTitle": "おすすめ動画",
-    "videoDescription": "Demiitas. の YouTube チャンネルで、制作動画と設定雑談を配信予定です。",
     "channelUrl": "https://www.youtube.com/channel/UCnWDEpYvIh0Mpjo70ui6bPQ"
   }
 }
