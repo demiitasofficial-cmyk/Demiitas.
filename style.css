@@ -1371,7 +1371,7 @@ html {
   .char-kv-img {
   width: 100%;
   height: auto;
-  max-height: none;
+  max-height: 55vh;
   object-fit: contain;
   object-position: center;
   display: block;
