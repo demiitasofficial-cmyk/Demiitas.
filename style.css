@@ -730,13 +730,6 @@ body.is-fading-out #page-overlay {
   padding-top: 0;
 }
 
-.char-kv {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
-}
-
 .char-body-wrap {
   max-width: 1200px;
   margin: 0 auto;
@@ -1376,7 +1369,13 @@ html {
     max-height: 50vh;
   }
   .char-kv-img {
-    max-height: 55vh;
+  width: 100%;
+  height: auto;
+  max-height: none;
+  object-fit: contain;
+  object-position: center;
+  display: block;
+  margin: 0 auto;
   }
 
   .topic-split {
