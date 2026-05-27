@@ -732,7 +732,7 @@ body.is-fading-out #page-overlay {
 .char-kv-img {
   width: 100%;
   height: auto;
-  max-height: min(88vh, 960px);
+  max-height: 100vh;
   object-fit: contain;
   object-position: center;
   display: block;
