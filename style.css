@@ -723,8 +723,7 @@ body.is-fading-out #page-overlay {
   width: 100%;
   max-width: 100%;
   margin: 0;
-  padding-top: 64px;
-  background-color: #1a1610;
+  padding-top: 0;
   overflow: hidden;
   line-height: 0;
   box-sizing: border-box;
@@ -732,8 +731,7 @@ body.is-fading-out #page-overlay {
 .char-kv-img {
   width: 100%;
   height: auto;
-  max-height: min(88vh, 960px);
-  object-fit: contain;
+  object-fit: cover;
   object-position: center;
   display: block;
   margin: 0 auto;
