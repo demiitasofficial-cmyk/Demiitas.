@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>活動開始のお知らせ</title>
+<link rel="icon" href="favicon.png" type="image/png">
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,600;1,400&family=Noto+Serif+JP:wght@400;600&family=Cinzel:wght@400;600;700&display=swap" rel="stylesheet">
+<script src="https://unpkg.com/lucide@latest"></script>
+  <link rel="stylesheet" href="../style.css">
+
+<style>
+.doc-header-wrap { padding: 140px 0 0; text-align: center; }
+.doc-eyebrow { font-family: 'Cinzel', serif; font-size: .5rem; letter-spacing: .6em; color: rgba(156,98,15,.5); text-transform: uppercase; display: block; margin-bottom: .8rem; }
+.doc-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 400; color: var(--coffee-bean); letter-spacing: .1em; line-height: 1; margin-bottom: .5rem; }
+.doc-title-rule { width: 60px; height: 1px; background: linear-gradient(to right, transparent, rgba(156,98,15,.5), transparent); margin: .8rem auto 0; }
+.doc-lead { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .9rem; letter-spacing: .12em; color: rgba(98,74,43,.45); margin-top: .7rem; display: block; }
+
+.status-bar { margin: 2.5rem auto 0; max-width: 380px; border: 1px solid rgba(98,74,43,.2); padding: .65rem 1.5rem; display: flex; align-items: center; justify-content: center; gap: 1rem; background: var(--bg-color); }
+.status-dot { width: 8px; height: 8px; border-radius: 0; transform: rotate(45deg); flex-shrink: 0; }
+.status-dot.new { background: var(--camel-accent); }
+.status-label { font-family: 'Cinzel', serif; font-size: .52rem; letter-spacing: .4em; color: var(--coffee-bean); text-transform: uppercase; }
+.status-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .75rem; color: rgba(98,74,43,.45); letter-spacing: .08em; }
+
+.doc-body { max-width: 720px; margin: 0 auto; padding: 4rem 40px 6rem; }
+.doc-section { margin-bottom: 3.5rem; padding-bottom: 3.5rem; }
+.doc-section:last-child { border-bottom: none; }
+.doc-section-title { font-family: 'Cinzel', serif; font-size: .5rem; letter-spacing: .55em; color: rgba(156,98,15,.55); text-transform: uppercase; display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
+.doc-section-title::before { content: '◆'; font-size: .45em; color: rgba(156,98,15,.4); }
+.doc-section-title::after { content: ''; flex: 1; height: 1px; background: rgba(98,74,43,.12); }
+.doc-h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--coffee-bean); letter-spacing: .06em; margin-bottom: 1rem; line-height: 1.2; }
+.doc-p { font-family: 'Noto Serif JP', serif; font-size: .88rem; line-height: 2.2; color: rgba(42,31,16,.72); letter-spacing: .04em; margin-bottom: 1rem; }
+.doc-p:last-child { margin-bottom: 0; }
+
+.quote-box { border-left: 3px solid var(--camel-accent); padding-left: 1.5rem; margin: 2rem 0; font-style: italic; }
+.quote-text { font-family: 'Cormorant Garamond', serif; font-size: 1rem; line-height: 2; color: var(--coffee-bean); letter-spacing: .06em; }
+
+.feature-list { list-style: none; padding: 0; margin: 1.2rem 0; display: flex; flex-direction: column; gap: .8rem; }
+.feature-item { display: flex; gap: 1rem; align-items: flex-start; }
+.feature-icon { font-family: 'Cinzel', serif; font-size: .7rem; color: var(--camel-accent); flex-shrink: 0; margin-top: .2rem; }
+.feature-text { font-family: 'Noto Serif JP', serif; font-size: .88rem; line-height: 2; color: rgba(42,31,16,.72); letter-spacing: .04em; }
+.feature-text strong { font-family: 'Cormorant Garamond', serif; font-weight: 600; color: var(--coffee-bean); }
+
+.principle-card { border: 1px solid rgba(98,74,43,.2); padding: 1.5rem; margin: 1.5rem 0; background: rgba(244,237,228,.3); }
+.principle-number { font-family: 'Cinzel', serif; font-size: .5rem; letter-spacing: .5em; color: var(--camel-accent); text-transform: uppercase; margin-bottom: .6rem; display: block; }
+.principle-title { font-family: 'Cormorant Garamond', serif; font-size: 1.1rem; font-weight: 600; color: var(--coffee-bean); margin-bottom: .6rem; }
+.principle-text { font-family: 'Noto Serif JP', serif; font-size: .85rem; line-height: 2; color: rgba(42,31,16,.72); }
+
+.topic-image { width: 100%; aspect-ratio: 16/9; background-size: cover; background-position: center; border: 1px solid var(--border-line); margin: 2rem 0; filter: sepia(.08) contrast(1.03); }
+
+.doc-cta { text-align: center; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid rgba(98,74,43,.12); }
+.doc-cta-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .82rem; color: rgba(98,74,43,.45); letter-spacing: .1em; display: block; margin-bottom: 1.5rem; }
+.doc-cta-btn { display: inline-flex; align-items: center; gap: .8rem; font-family: 'Cinzel', serif; font-size: .52rem; letter-spacing: .45em; color: var(--bg-color); background: var(--coffee-bean); padding: .9rem 2.5rem; text-decoration: none; text-transform: uppercase; transition: background .35s, letter-spacing .35s; position: relative; }
+.doc-cta-btn::before { content: '◆'; font-size: .55em; opacity: .7; }
+.doc-cta-btn:hover { background: rgba(75,51,20,1); letter-spacing: .55em; }
+
+.date-meta { font-family: 'Cinzel', serif; font-size: .6rem; letter-spacing: .3em; color: var(--camel-accent); text-transform: uppercase; display: block; margin-top: 1.5rem; }
+
+@media (max-width: 768px) {
+    .doc-body { padding: 2.5rem 1.2rem 4rem; }
+    .doc-header-wrap { padding-top: 100px; }
+}
+</style>
+</head>
+<body>
+<div id="page-overlay"></div>
+
+<div class="geo-cursor">
+    <div class="geo-cursor-dot"></div>
+    <div class="geo-cursor-ring"></div>
+</div>
+
+<nav class="top-nav">
+    <div class="nav-container">
+      <a href="/" class="nav-logo"><img src="../name logo.png" alt="DEMITAS Logo"></a>
+      
+      <button class="hamburger-btn" id="hamburger-btn" aria-label="Menu">
+        <i data-lucide="menu" class="icon-menu"></i>
+        <i data-lucide="x" class="icon-close" style="display: none;"></i>
+      </button>
+      
+      <ul id="nav-links">
+        <li><a href="index.html">TOPIC</a></li>
+        <li><a href="../characters.html">CHARACTER</a></li>
+        <li><a href="../index.html#gallery">GALLERY</a></li>
+        <li><a href="../contact.html">CONTACT</a></li>
+        
+        <li class="mobile-social-menu">
+          <a href="https://x.com/de_miitas?s=21" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="currentColor">
+                <path d="M18.901 1.153h3.68l-8.04 9.19L24 22.846h-7.406l-5.8-7.584-6.638 7.584H.474l8.6-9.83L0 1.154h7.594l5.243 6.932ZM17.61 20.644h2.039L6.486 3.24H4.298Z"/>
+              </svg>
+            </span>
+            <span class="social-name">X (Twitter)</span>
+          </a>
+          
+          <a href="https://www.instagram.com/de_miitas?igsh=bWJqeWI0MHhwZmtk&utm_source=qr" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
+                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
+                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
+              </svg>
+            </span>
+            <span class="social-name">Instagram</span>
+          </a>
+          
+          <a href="https://www.pixiv.net/users/125458323" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon"><i data-lucide="palette"></i></span>
+            <span class="social-name">pixiv</span>
+          </a>
+          
+          <a href="https://www.youtube.com/channel/UCnWDEpYvIh0Mpjo70ui6bPQ" class="social-item" target="_blank" rel="noopener noreferrer">
+            <span class="social-icon">
+              <svg viewBox="0 0 24 24" width="20" height="20" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+                <path d="M22.54 6.42a2.78 2.78 0 0 0-1.94-2C18.88 4 12 4 12 4s-6.88 0-8.6.46a2.78 2.78 0 0 0-1.94 2A29 29 0 0 0 1 11.75a29 29 0 0 0 .46 5.33A2.78 2.78 0 0 0 3.4 19c1.72.46 8.6.46 8.6.46s6.88 0 8.6-.46a2.78 2.78 0 0 0 1.94-2 29 29 0 0 0 .46-5.25 29 29 0 0 0-.46-5.33z"></path>
+                <polygon points="9.75 15.02 15.5 11.75 9.75 8.48 9.75 15.02"></polygon>
+              </svg>
+            </span>
+            <span class="social-name">YouTube</span>
+          </a>
+
+        </li>
+        </ul>
+    </div>
+  </nav>
+
+  <main class="doc-header-wrap">
+    <span class="doc-eyebrow">Regarding the operation of this website</span>
+    <h1 class="doc-title">当サイトに関して</h1>
+    <div class="doc-title-rule"></div>
+    <span class="date-meta">2026.05.27</span>
+  </main>
+
+  <div class="doc-body">
+ 
+    <section class="doc-section fade-in">
+      <p class="doc-section-title">運営と更新</p>
+ 
+      <p class="doc-p">
+
+        いつも当サイトをご覧いただき、誠にありがとうございます。<br>
+        このWebサイトは、Demiitas.の作品や活動に関する情報を、できるだけ見やすく、わかりやすくお届けするための公式サイトとして運営しております。<br>
+        <br>
+        本サイトでは、完成作品の掲載はもちろん、制作活動に関するお知らせ、ご依頼に関するご案内、各種ページの更新情報、世界観や設定にまつわる内容などを、ひとつの場所に整理してお届けしていきたいと考えております。<br>
+        SNSでは日々の発信や制作の断片、より身近な活動の様子をお伝えしつつ、こちらのサイトでは、作品やご案内を落ち着いて見ていただけるよう、情報を整理した形でまとめてまいります。<br>
+        <br>
+        今後は、イラスト作品の更新情報をはじめ、制作に関するお知らせ、新しいページの追加、既存ページの調整、イベント参加情報、ご依頼受付状況のご案内などを、主にTOPICにて随時掲載していく予定です。<br>
+        活動の節目となるお知らせや、サイト内で比較的大きな更新があった際にも、こちらでご案内してまいりますので、ときどき覗いていただけましたら嬉しく思います。<br>
+        <br>
+        また、当サイト内の文章や掲載内容、作品の見せ方、各案内ページの構成などは、活動状況や制作の進行にあわせて、予告なく更新・加筆・修正を行う場合がございます。<br>
+        これは、より見やすく、より心地よく、そしてより作品の魅力や情報の意図が伝わる形を目指して整えていくためのものです。<br>
+        公開後も少しずつ手を入れながら、訪れてくださる方にとってわかりやすく、安心してご覧いただける場所へと育てていければと考えております。<br>
+        <br>
+        このサイトは、単なる告知の場ではなく、Demiitas.の活動や作品の積み重ねを静かに記録していく場所でもあります。<br>
+        新作やお知らせだけでなく、作品の背景にある空気感や世界観、制作を続けていく中で生まれる変化や歩みも含めて、少しずつ厚みのあるサイトにしていきたいと思っております。<br>
+        <br>
+        更新頻度は不定期となりますが、その分、一つひとつの更新を大切にしながら運営してまいります。
+        ふとしたタイミングで訪れていただいた際に、新しい作品やお知らせとの出会いを楽しんでいただけるような場になれば幸いです。
+        <br>
+        なお、ご依頼に関する詳細につきましてはCommissionページにてご案内しております。<br>
+        受付内容やご案内事項に変更があった場合は、必要に応じてTOPICでもお知らせいたします。<br>
+        また、作品のご利用に関するルールについてはGuidelinesページをご確認ください。よくいただくご質問についても、FAQページにて順次整理・追記してまいります。<br>
+        <br> 
+        これからも、作品とともにこのサイト自体も少しずつ育ててまいります。<br>
+        今後ともDemiitas.をどうぞよろしくお願いいたします。
+
+      </p>
+    </section>
+
+  </div>
+
+<a href="../index.html" class="back-link">BACK</a>
+
+<footer class="site-footer">
+    <div class="content-wrapper footer-wrapper">
+      <div class="footer-nav">
+        <a href="../commission.html" class="footer-link">Commission</a>
+        <span class="footer-separator">|</span>
+        <a href="../guidelines.html" class="footer-link">Guidelines</a>
+        <span class="footer-separator">|</span>
+        
+        <a href="../privacy.html" class="footer-link">Privacy Policy</a>
+      </div>
+      <div class="footer-copy">
+        <small>&copy; 2026 Demiitas. All Rights Reserved.</small>
+      </div>
+
+      <button id="page-top" class="page-top-btn" aria-label="Page Top">
+        <i data-lucide="chevron-up"></i>
+      </button>
+      </div>
+  </footer>
+
+<script src="../script.js"></script>
+</body>
+</html>

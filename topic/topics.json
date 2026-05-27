@@ -9,6 +9,17 @@
       "title": "活動開始のお知らせ",
       "excerpt": "イラストレーター Demiitas. として活動を開始しました。各プラットフォームでの展開についてご案内します。",
       "thumb": "01.御挨拶.webp"
+    },
+
+    {
+      "slug": "topic-02",
+      "date": "2026-05-27",
+      "tag": "info",
+      "tagLabel": "Info",
+      "featured": true,
+      "title": "当サイトに関して",
+      "excerpt": "当サイトの運営に関する情報をご案内いたします。",
+      "thumb": ""
     }
   ]
 }
