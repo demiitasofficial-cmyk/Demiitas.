@@ -719,15 +719,16 @@ body.is-fading-out #page-overlay {
   margin: 0;
 }
 .char-kv {
-  width: 100vw;
-  position: relative;
-  left: 50%;
-  transform: translateX(-50%);
+  width: 100%;
   overflow: hidden;
   line-height: 0;
-  box-sizing: border-box;
-  margin: 0;
-  padding-top: 0;
+}
+
+.char-kv-img {
+  width: 100%;
+  height: auto;
+  display: block;
+  object-fit: contain;
 }
 
 .char-body-wrap {
