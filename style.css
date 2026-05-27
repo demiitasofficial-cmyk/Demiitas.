@@ -726,8 +726,6 @@ body.is-fading-out #page-overlay {
   overflow: hidden;
   line-height: 0;
   box-sizing: border-box;
-}
-.char-kv-img {
   width: 100%;
   height: auto;
   object-fit: cover;

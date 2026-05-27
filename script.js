@@ -483,7 +483,6 @@ async function initCharacterPage() {
     setText('[data-char-name-ja]', data.nameJa);
     setText('[data-char-name-en]', data.nameEn);
     setText('[data-char-yt-desc]', data.youtube?.videoDescription);
-    document.title = `${data.nameJa || 'Character'} — Demiitas.`;
 
     if (bio && Array.isArray(data.paragraphs)) {
         bio.innerHTML = '';
