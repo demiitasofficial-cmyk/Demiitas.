@@ -9,59 +9,6 @@
 <script src="https://unpkg.com/lucide@latest"></script>
   <link rel="stylesheet" href="style.css">
 
-<style>
-/* ページ固有スタイル */
-.doc-header-wrap { padding: 140px 0 0; text-align: center; }
-.doc-eyebrow { font-family: 'Cinzel', serif; font-size: .5rem; letter-spacing: .6em; color: rgba(156,98,15,.5); text-transform: uppercase; display: block; margin-bottom: .8rem; }
-.doc-title { font-family: 'Cormorant Garamond', serif; font-size: clamp(2.8rem, 5vw, 4.2rem); font-weight: 400; color: var(--coffee-bean); letter-spacing: .1em; line-height: 1; margin-bottom: .5rem; }
-.doc-title-rule { width: 60px; height: 1px; background: linear-gradient(to right, transparent, rgba(156,98,15,.5), transparent); margin: .8rem auto 0; }
-.doc-lead { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .9rem; letter-spacing: .12em; color: rgba(98,74,43,.45); margin-top: .7rem; display: block; }
-
-.status-bar { margin: 2.5rem auto 0; max-width: 320px; border: 1px solid rgba(98,74,43,.2); padding: .65rem 1.5rem; display: flex; align-items: center; justify-content: center; gap: 1rem; background: var(--bg-color); }
-.status-dot { width: 8px; height: 8px; border-radius: 0; transform: rotate(45deg); flex-shrink: 0; }
-.status-dot.open { background: #7a9e6a; }
-.status-dot.close { background: rgba(98,74,43,.35); }
-.status-label { font-family: 'Cinzel', serif; font-size: .52rem; letter-spacing: .4em; color: var(--coffee-bean); text-transform: uppercase; }
-.status-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .75rem; color: rgba(98,74,43,.45); letter-spacing: .08em; }
-
-.doc-body { max-width: 720px; margin: 0 auto; padding: 4rem 40px 6rem; }
-.doc-section { margin-bottom: 3.5rem; padding-bottom: 3.5rem; }
-.doc-section:last-child { border-bottom: none; }
-.doc-section-title { font-family: 'Cinzel', serif; font-size: .5rem; letter-spacing: .55em; color: rgba(156,98,15,.55); text-transform: uppercase; display: flex; align-items: center; gap: 1rem; margin-bottom: 1.5rem; }
-.doc-section-title::before { content: '◆'; font-size: .45em; color: rgba(156,98,15,.4); }
-.doc-section-title::after { content: ''; flex: 1; height: 1px; background: rgba(98,74,43,.12); }
-.doc-h2 { font-family: 'Cormorant Garamond', serif; font-size: 1.5rem; font-weight: 400; color: var(--coffee-bean); letter-spacing: .06em; margin-bottom: 1rem; line-height: 1.2; }
-.doc-p { font-family: 'Noto Serif JP', serif; font-size: .88rem; line-height: 2.2; color: rgba(42,31,16,.72); letter-spacing: .04em; margin-bottom: 1rem; }
-.doc-p:last-child { margin-bottom: 0; }
-
-.price-table { width: 100%; border-collapse: collapse; margin: 1.2rem 0; }
-.price-table th { font-family: 'Cinzel', serif; font-size: .45rem; letter-spacing: .4em; color: rgba(156,98,15,.6); text-transform: uppercase; text-align: left; padding: .5rem .8rem; border-bottom: 1px solid rgba(98,74,43,.2); }
-.price-table td { font-family: 'Cormorant Garamond', serif; font-size: .9rem; color: rgba(42,31,16,.72); letter-spacing: .04em; padding: .75rem .8rem; border-bottom: 1px solid rgba(98,74,43,.08); vertical-align: top; line-height: 1.6; }
-.price-table tr:last-child td { border-bottom: none; }
-.price-table .price-val { font-weight: 600; color: var(--coffee-bean); white-space: nowrap; }
-
-.step-list { list-style: none; padding: 0; margin: 1.2rem 0; display: flex; flex-direction: column; gap: 1rem; }
-.step-item { display: flex; gap: 1.2rem; align-items: flex-start; }
-.step-num { font-family: 'Cinzel', serif; font-size: .48rem; letter-spacing: .3em; color: rgba(156,98,15,.5); border: 1px solid rgba(156,98,15,.3); width: 28px; height: 28px; flex-shrink: 0; display: flex; align-items: center; justify-content: center; margin-top: .1rem; }
-.step-text { font-family: 'Noto Serif JP', serif; font-size: .88rem; line-height: 2; color: rgba(42,31,16,.72); letter-spacing: .04em; }
-.step-text strong { font-family: 'Cormorant Garamond', serif; font-size: 1rem; font-weight: 600; color: var(--coffee-bean); letter-spacing: .06em; display: block; margin-bottom: .2rem; }
-
-.ng-list { list-style: none; padding: 0; margin: 1rem 0; }
-.ng-list li { font-family: 'Noto Serif JP', serif; font-size: .85rem; line-height: 2; color: rgba(42,31,16,.65); letter-spacing: .04em; padding-left: 1.2rem; position: relative; }
-.ng-list li::before { content: '◇'; position: absolute; left: 0; font-size: .55em; color: rgba(98,74,43,.35); top: .45em; }
-
-.doc-cta { text-align: center; margin-top: 3rem; padding-top: 3rem; border-top: 1px solid rgba(98,74,43,.12); }
-.doc-cta-note { font-family: 'Cormorant Garamond', serif; font-style: italic; font-size: .82rem; color: rgba(98,74,43,.45); letter-spacing: .1em; display: block; margin-bottom: 1.5rem; }
-.doc-cta-btn { display: inline-flex; align-items: center; gap: .8rem; font-family: 'Cinzel', serif; font-size: .52rem; letter-spacing: .45em; color: var(--bg-color); background: var(--coffee-bean); padding: .9rem 2.5rem; text-decoration: none; text-transform: uppercase; transition: background .35s, letter-spacing .35s; position: relative; }
-.doc-cta-btn::before { content: '◆'; font-size: .55em; opacity: .7; }
-.doc-cta-btn:hover { background: rgba(75,51,20,1); letter-spacing: .55em; }
-
-@media (max-width: 768px) {
-    .doc-body { padding: 2.5rem 1.2rem 4rem; }
-    .doc-header-wrap { padding-top: 100px; }
-    .price-table { font-size: .8rem; }
-}
-</style>
 </head>
 <body>
 <div id="page-overlay"></div>
