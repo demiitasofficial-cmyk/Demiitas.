@@ -20,6 +20,17 @@
       "title": "当サイトに関して",
       "excerpt": "当サイトの運営に関する情報をご案内いたします。",
       "thumb": ""
+    },
+
+    {
+      "slug": "topic-03",
+      "date": "2026-07-11",
+      "tag": "info",
+      "tagLabel": "work",
+      "featured": true,
+      "title": "依頼受付開始 8月～着手",
+      "excerpt": "新規御依頼募集開始のお知らせ",
+      "thumb": ""
     }
   ]
 }

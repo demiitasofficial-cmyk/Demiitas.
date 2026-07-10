@@ -415,7 +415,7 @@ const TOPIC_TAB_LABELS = {
     all: '最新',
     info: 'お知らせ',
     update: '更新',
-    work: '制作',
+    work: '依頼',
     art: '作品',
     event: 'イベント'
 };
